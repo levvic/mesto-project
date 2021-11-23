@@ -8,3 +8,13 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+@media (max-width: 768px) {
+  .profile__name {
+      max-width: 189px;
+      font-size: 27px;
+      line-height: 33px;
+      margin: 22px 0 9px;
+      justify-self: end;
+  }
+}

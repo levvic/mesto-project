@@ -2,10 +2,10 @@
 @import url(../vendor/fonts.css);
 @import url(../blocks/page/page.css);
 @import url(../blocks/header/header.css);
+@import url(../blocks/header/__logo/header__logo.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__picture/profile__picture.css);
 @import url(../blocks/profile/__info/profile__info.css);
-@import url(../blocks/profile/__info-edit/profile__info-edit.css);
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__description/profile__description.css);
 @import url(../blocks/profile/__edit-btn/profile__edit-btn.css);

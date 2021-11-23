@@ -2,4 +2,12 @@
   margin-top: 45px;
   min-height: 74px;
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .header {
+      margin-top: 28px;
+      min-height: 56px;
+  }
 }
