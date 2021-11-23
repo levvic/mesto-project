@@ -1,0 +1,6 @@
+.location-card__description {
+  display: flex;
+  margin: 25px 30px 31px 21px;
+  justify-content: space-between;
+  align-items: center;
+}

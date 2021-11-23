@@ -1,0 +1,7 @@
+.profile__info-edit {
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+  width: 100%;
+  align-items: flex-end;
+}

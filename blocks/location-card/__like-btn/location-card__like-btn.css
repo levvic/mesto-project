@@ -1,0 +1,15 @@
+.location-card__like-btn {
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/like-btn.svg);
+  border: 0;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.location-card__like-btn:hover {
+  opacity: 0.5;
+}
+

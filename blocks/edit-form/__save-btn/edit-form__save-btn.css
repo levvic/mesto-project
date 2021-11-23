@@ -1,0 +1,18 @@
+.edit-form__save-btn {
+    margin: 47px 0 0 0;
+    padding: 14px 0;
+    width: 100%;
+    background: #000000;
+    border: 0;
+    border-radius: 2px;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #FFFFFF;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.edit-form__save-btn:hover {
+  opacity: 0.8;
+}

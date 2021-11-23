@@ -1,0 +1,19 @@
+.profile__add-card-btn {
+  background-image: url(../../../images/add-btn.svg);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
+  cursor: pointer;
+  min-width: 150px;
+  min-height: 50px;
+  border: 2px solid #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 2px;
+  margin-left: 244px;
+}
+
+.profile__add-card-btn:hover {
+  opacity: 0.6;
+}
+
