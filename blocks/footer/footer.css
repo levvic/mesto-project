@@ -4,3 +4,11 @@
   color: #545454;
   margin-bottom: 60px;
 }
+
+@media (max-width: 768px) {
+  .footer {
+    margin-bottom: 36px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

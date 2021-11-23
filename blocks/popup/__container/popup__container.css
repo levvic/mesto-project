@@ -1,5 +1,6 @@
 .popup__container {
   max-width: 430px;
+  min-width: 282px;
   padding: 34px 36px 37px;
   box-sizing: border-box;
   background: #FFFFFF;
@@ -9,4 +10,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+@media (max-width: 768px) {
+  .popup__container {
+    padding: 25px 22px;
+  }
 }

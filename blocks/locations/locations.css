@@ -1,3 +1,9 @@
 .locations {
   margin: 0 0 67px;
 }
+
+@media (max-width: 768px) {
+  .locations {
+    margin-bottom: 55px;
+  }
+}
