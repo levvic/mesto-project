@@ -1,4 +1,4 @@
-.edit-form__save-btn {
+.form-name__save-btn {
     margin: 47px 0 0 0;
     padding: 14px 0;
     width: 100%;
@@ -13,12 +13,12 @@
     cursor: pointer;
 }
 
-.edit-form__save-btn:hover {
+.form-name__save-btn:hover {
   opacity: 0.8;
 }
 
 @media (max-width: 768px) {
-  .edit-form__save-btn {
+  .form-name__save-btn {
     margin: 40px 0 0 0;
     font-size: 14px;
     line-height: 17px;
