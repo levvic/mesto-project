@@ -7,6 +7,7 @@
   <meta name="keywords" content="путешествие, места">
   <meta name="author" content="Victoria Panchenko">
   <link rel="stylesheet" href="./pages/index.css">
+  <script src="./script.js"></script>
   <title>Mesto</title>
 </head>
 <body class="page">
@@ -25,60 +26,6 @@
     </section>
     <section class="locations">
       <ul class="location-cards">
-        <li class="location-card">
-          <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="location-card__image">
-          <div class="location-card__description">
-            <h2 class="location-card__name">
-              Карачаевск
-            </h2>
-            <button type="button" class="location-card__like-btn" aria-label="Мне нравится"></button>
-          </div>
-        </li>
-        <li class="location-card">
-          <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="location-card__image">
-          <div class="location-card__description">
-            <h2 class="location-card__name">
-              Гора Эльбрус
-            </h2>
-            <button type="button" class="location-card__like-btn location-card__like-btn_active" aria-label="Мне нравится"></button>
-          </div>
-        </li>
-        <li class="location-card">
-          <img src="./images/dombai.jpg" alt="Домбай" class="location-card__image">
-          <div class="location-card__description">
-            <h2 class="location-card__name">
-              Домбай
-            </h2>
-            <button type="button" class="location-card__like-btn" aria-label="Мне нравится"></button>
-          </div>
-        </li>
-        <li class="location-card">
-          <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="location-card__image">
-          <div class="location-card__description">
-            <h2 class="location-card__name">
-              Гора Эльбрус
-            </h2>
-            <button type="button" class="location-card__like-btn" aria-label="Мне нравится"></button>
-          </div>
-        </li>
-        <li class="location-card">
-          <img src="./images/dombai.jpg" alt="Домбай" class="location-card__image">
-          <div class="location-card__description">
-            <h2 class="location-card__name">
-              Домбай
-            </h2>
-            <button type="button" class="location-card__like-btn" aria-label="Мне нравится"></button>
-          </div>
-        </li>
-        <li class="location-card">
-          <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="location-card__image">
-          <div class="location-card__description">
-            <h2 class="location-card__name">
-              Карачаево-Черкесия
-            </h2>
-            <button type="button" class="location-card__like-btn" aria-label="Мне нравится"></button>
-          </div>
-        </li>
       </ul>
     </section>
   </main>
@@ -94,9 +41,9 @@
       <button type="button" class="popup__close-btn" aria-label="Закрыть"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="form-name" name="edit-profile">
-        <input name="name" value="Жак-Ив Кусто" type="text" class="form-name__input" placeholder="Имя">
-        <input name="description" value="Исследователь океана" type="text" class="form-name__input" placeholder="Описание">
-        <button type="button" class="form-name__save-btn" aria-label="Сохранить">Сохранить</button>
+        <input name="name" type="text" class="form-name__input" placeholder="Имя">
+        <input name="description" type="text" class="form-name__input" placeholder="Описание">
+        <button type="submit" class="form-name__save-btn" aria-label="Сохранить">Сохранить</button>
       </form>
     </div>
   </div>
