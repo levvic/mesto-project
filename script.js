@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', function(event) {
 
-  const popUp = document.querySelector('.popup');
-  const editBtn = document.querySelector('.profile__edit-btn');
-  const closeBtn = document.querySelector('.popup__close-btn');
+  const popupEditProfile = document.querySelector('#popup_edit-profile');
+  const popupAddCard = document.querySelector('#popup_add-card');
+  const editProfileBtn = document.querySelector('.profile__edit-btn');
+  const closeProfileFormBtn = document.querySelector('#close_edit-profile');
+  const closeCardFormBtn = document.querySelector('#close_add-card');
   const cardsList = document.querySelector('.location-cards');
+  const addCardBtn = document.querySelector('.profile__add-card-btn');
+
 
   // photos
   const initialCards = [
@@ -33,50 +37,55 @@ document.addEventListener('DOMContentLoaded', function(event) {
     }
     ];
 
-  const addInitialCards = () => {
 
-    initialCards.forEach(card => {
-      cardsList.insertAdjacentHTML('beforeend',
+  const addCard = (cardName, cardLink) => {
+    cardsList.insertAdjacentHTML('afterbegin',
       `<li class="location-card">
-        <img src="${card.link}" alt="${card.name}" class="location-card__image">
+        <img src="${cardLink}" alt="${cardName}" class="location-card__image">
         <div class="location-card__description">
           <h2 class="location-card__name">
-            ${card.name}
+            ${cardName}
           </h2>
           <button type="button" class="location-card__like-btn" aria-label="Мне нравится"></button>
         </div>
       </li>`);
-
-    });
   }
 
+  const addInitialCards = () => initialCards.forEach(card => addCard(card.name, card.link));
   addInitialCards();
 
-  function openPopup() {
-    popUp.classList.add('popup_opened');
-    popUp.querySelector('input[name="name"]').value = document.querySelector('.profile__name').textContent;
-    popUp.querySelector('input[name="description"]').value = document.querySelector('.profile__description').textContent;
+  const openProfilePopup = () => {
+    popupEditProfile.querySelector('input[name="name"]').value = document.querySelector('.profile__name').textContent;
+    popupEditProfile.querySelector('input[name="description"]').value = document.querySelector('.profile__description').textContent;
+    popupEditProfile.classList.add('popup_opened');
   }
 
-  function closePopup() {
-    popUp.classList.remove('popup_opened');
-  }
+  const openCardPopup = () => popupAddCard.classList.add('popup_opened');
+
+  const closePopup = () => document.querySelector('.popup_opened').classList.remove('popup_opened');
 
   const updateProfileInfoOnPage = () => {
-    document.querySelector('.profile__name').textContent = popUp.querySelector('input[name="name"]').value;
-    document.querySelector('.profile__description').textContent = popUp.querySelector('input[name="description"]').value;
+    document.querySelector('.profile__name').textContent = popupEditProfile.querySelector('input[name="name"]').value;
+    document.querySelector('.profile__description').textContent = popupEditProfile.querySelector('input[name="description"]').value;
   }
 
-  function formSubmitHandler (evt) {
+  const formSubmitHandler = (evt) => {
     evt.preventDefault();
-    updateProfileInfoOnPage();
+
+    if(evt.srcElement.className === 'form-name')
+      updateProfileInfoOnPage();
+    else if(evt.srcElement.className === 'form-card')
+      addCard(popupAddCard.querySelector('input[name="name"]').value, popupAddCard.querySelector('input[name="link"]').value);
+
     closePopup();
   }
 
-  editBtn.addEventListener('click', openPopup);
-  closeBtn.addEventListener('click', closePopup);
-  popUp.addEventListener('submit', formSubmitHandler);
-
+  editProfileBtn.addEventListener('click', openProfilePopup);
+  closeProfileFormBtn.addEventListener('click', closePopup);
+  closeCardFormBtn.addEventListener('click', closePopup);
+  addCardBtn.addEventListener('click', openCardPopup);
+  popupEditProfile.addEventListener('submit', formSubmitHandler);
+  popupAddCard.addEventListener('submit', formSubmitHandler);
 
 });
 

@@ -1,0 +1,20 @@
+.form__input {
+    margin: 0;
+    padding: 0 0 12px 0;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    outline: none;
+}
+
+.form__input:first-child {
+  margin-bottom: 25px;
+}
+
+.form__input::-webkit-input-placeholder {color:#000000;}
+.form__input::-moz-placeholder          {color:#000000;}
+.form__input::-ms-input-placeholder     {color:#000000;}
+.form__input::placeholder               {color:#000000;}

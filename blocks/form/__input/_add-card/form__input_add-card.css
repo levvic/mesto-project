@@ -1,0 +1,4 @@
+.form__input::-webkit-input-placeholder {color:#C4C4C4;}
+.form__input::-moz-placeholder          {color:#C4C4C4;}
+.form__input::-ms-input-placeholder     {color:#C4C4C4;}
+.form__input::placeholder               {color:#C4C4C4;}
