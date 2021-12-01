@@ -1,0 +1,17 @@
+.location-card__delete-btn{
+  width: 18px;
+  height: 19px;
+  background-image: url(../../../images/delete-btn.svg);
+  border: 0;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.location-card__delete-btn:hover {
+  opacity: 0.6;
+}

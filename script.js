@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   const cardsSection = document.querySelector('.location-cards');
   const addCardBtn = document.querySelector('.profile__add-card-btn');
   let likeBtnList;
+  let deleteBtnList;
 
   // photos
   const initialCards = [
@@ -41,9 +42,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
   const toggleLikeBtn = (evt) => evt.srcElement.classList.toggle("location-card__like-btn_active");
 
+  const deleteCard = (evt) => evt.srcElement.parentNode.remove();
+
   const addCard = (cardName, cardLink) => {
     cardsSection.insertAdjacentHTML('afterbegin',
       `<li class="location-card">
+        <button type="button" class="location-card__delete-btn" aria-label="Удалить"></button>
         <img src="${cardLink}" alt="${cardName}" class="location-card__image">
         <div class="location-card__description">
           <h2 class="location-card__name">
@@ -54,8 +58,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
       </li>`);
 
     likeBtnList = document.querySelectorAll('.location-card__like-btn');
+    deleteBtnList = document.querySelectorAll('.location-card__delete-btn');
     likeBtnList.forEach(likeBtn => likeBtn.addEventListener('click', toggleLikeBtn));
+    deleteBtnList.forEach(deleteBtn => deleteBtn.addEventListener('click', deleteCard));
   }
+
 
   const addInitialCards = () => initialCards.forEach(card => addCard(card.name, card.link));
   addInitialCards();
