@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
   const editProfileBtn = document.querySelector('.profile__edit-btn');
   const closeProfileFormBtn = document.querySelector('#close_edit-profile');
   const closeCardFormBtn = document.querySelector('#close_add-card');
-  const cardsList = document.querySelector('.location-cards');
+  const cardsSection = document.querySelector('.location-cards');
   const addCardBtn = document.querySelector('.profile__add-card-btn');
-
+  let likeBtnList;
 
   // photos
   const initialCards = [
@@ -38,8 +38,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
     ];
 
 
+
+  const toggleLikeBtn = (evt) => evt.srcElement.classList.toggle("location-card__like-btn_active");
+
   const addCard = (cardName, cardLink) => {
-    cardsList.insertAdjacentHTML('afterbegin',
+    cardsSection.insertAdjacentHTML('afterbegin',
       `<li class="location-card">
         <img src="${cardLink}" alt="${cardName}" class="location-card__image">
         <div class="location-card__description">
@@ -49,6 +52,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
           <button type="button" class="location-card__like-btn" aria-label="Мне нравится"></button>
         </div>
       </li>`);
+
+    likeBtnList = document.querySelectorAll('.location-card__like-btn');
+    likeBtnList.forEach(likeBtn => likeBtn.addEventListener('click', toggleLikeBtn));
   }
 
   const addInitialCards = () => initialCards.forEach(card => addCard(card.name, card.link));
@@ -79,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
     closePopup();
   }
+
 
   editProfileBtn.addEventListener('click', openProfilePopup);
   closeProfileFormBtn.addEventListener('click', closePopup);
