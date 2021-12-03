@@ -75,7 +75,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
   const openCardPopup = () => popupAddCard.classList.add('popup_opened');
 
-  const closePopup = () => document.querySelector('.popup_opened').classList.remove('popup_opened');
+  const closePopup = () => {
+    document.querySelector('.popup_opened').classList.add('fade-out');
+    setTimeout(function(){
+      document.querySelector('.popup_opened').classList.remove('popup_opened', 'fade-out');
+    }, 1000);
+  }
 
   const updateProfileInfoOnPage = () => {
     document.querySelector('.profile__name').textContent = popupEditProfile.querySelector('input[name="name"]').value;
