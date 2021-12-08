@@ -26,6 +26,16 @@
     </section>
     <section class="locations">
       <ul class="location-cards">
+        <template id="card-template">
+          <li class="location-card">
+            <button type="button" class="location-card__delete-btn" aria-label="Удалить"></button>
+            <img src="" alt="" class="location-card__image">
+            <div class="location-card__description">
+              <h2 class="location-card__name"></h2>
+              <button type="button" class="location-card__like-btn" aria-label="Мне нравится"></button>
+            </div>
+          </li>
+        </template>
       </ul>
     </section>
   </main>
