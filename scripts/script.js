@@ -2,13 +2,15 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
   const popupEditProfile = document.querySelector('#popup_edit-profile');
   const popupAddCard = document.querySelector('#popup_add-card');
+  const popupOpenPic = document.querySelector('#popup_pic');
   const editProfileBtn = document.querySelector('.profile__edit-btn');
   const closeProfileFormBtn = document.querySelector('#close_edit-profile');
   const closeCardFormBtn = document.querySelector('#close_add-card');
+  const closePictureBtn = document.querySelector('#close_show-pic');
   const cardsSection = document.querySelector('.location-cards');
   const addCardBtn = document.querySelector('.profile__add-card-btn');
-  let likeBtnList;
-  let deleteBtnList;
+  const popupImg = document.querySelector('.pic-container__image');
+  const imgTitle = document.querySelector('.pic-container__caption');
 
   // photos
   const initialCards = [
@@ -38,7 +40,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
     }
     ];
 
-
+    const openPicContainer = (evt) => {
+      popupImg.src = evt.target.src;
+      popupImg.alt = evt.target.alt;
+      imgTitle.textContent = evt.target.alt;
+      popupOpenPic.classList.add('popup_opened');
+    }
 
   const toggleLikeBtn = (evt) => evt.srcElement.classList.toggle("location-card__like-btn_active");
 
@@ -57,10 +64,14 @@ document.addEventListener('DOMContentLoaded', function(event) {
         </div>
       </li>`);
 
-    likeBtnList = document.querySelectorAll('.location-card__like-btn');
-    deleteBtnList = document.querySelectorAll('.location-card__delete-btn');
-    likeBtnList.forEach(likeBtn => likeBtn.addEventListener('click', toggleLikeBtn));
-    deleteBtnList.forEach(deleteBtn => deleteBtn.addEventListener('click', deleteCard));
+    const card = document.querySelector('.location-card');
+    const likeBtn = card.querySelector('.location-card__like-btn');
+    likeBtn.addEventListener('click', toggleLikeBtn);
+    const deleteBtn = card.querySelector('.location-card__delete-btn');
+    deleteBtn.addEventListener('click', deleteCard);
+
+    const cardImg = card.querySelector('.location-card__image');
+    cardImg.addEventListener('click', openPicContainer);
   }
 
 
@@ -102,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
   editProfileBtn.addEventListener('click', openProfilePopup);
   closeProfileFormBtn.addEventListener('click', closePopup);
   closeCardFormBtn.addEventListener('click', closePopup);
+  closePictureBtn.addEventListener('click', closePopup);
   addCardBtn.addEventListener('click', openCardPopup);
   popupEditProfile.addEventListener('submit', formSubmitHandler);
   popupAddCard.addEventListener('submit', formSubmitHandler);
