@@ -11,10 +11,14 @@ document.addEventListener('DOMContentLoaded', function(event) {
   const addCardBtn = document.querySelector('.profile__add-card-btn');
   const popupImg = document.querySelector('.pic-container__image');
   const imgTitle = document.querySelector('.pic-container__caption');
-  const profileName = document.querySelector('.profile__name').textContent;
-  const profileDescription = document.querySelector('.profile__description').textContent;
+  const profileName = document.querySelector('.profile__name');
+  const profileDescription = document.querySelector('.profile__description');
   const formEditProfile = document.querySelector('.form-name');
   const formAddCard = document.querySelector('.form-card');
+  const profileNameInput = popupEditProfile.querySelector('input[name="name"]');
+  const profileDescriptionInput = popupEditProfile.querySelector('input[name="description"]');
+  const cardNameInput = popupAddCard.querySelector('input[name="name"]');
+  const cardLinkInput = popupAddCard.querySelector('input[name="link"]');
 
   // photos
   const initialCards = [
@@ -75,13 +79,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
     return newCard;
   }
 
-
   const addInitialCards = () => initialCards.forEach(card => cardsList.prepend(createCard(card.name, card.link)));
   addInitialCards();
 
   const openProfilePopup = () => {
-    popupEditProfile.querySelector('input[name="name"]').value = profileName;
-    popupEditProfile.querySelector('input[name="description"]').value = profileDescription;
+    profileNameInput.value = profileName.textContent;
+    profileDescriptionInput.value = profileDescription.textContent;
 
     openPopup(popupEditProfile);
   }
@@ -92,16 +95,18 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
   const closePopup = (popup) => popup.classList.remove('popup_opened');
 
-  const submitProfileInfo = () => {
-    document.querySelector('.profile__name').textContent = popupEditProfile.querySelector('input[name="name"]').value;
-    document.querySelector('.profile__description').textContent = popupEditProfile.querySelector('input[name="description"]').value;
+  const submitProfileInfo = (evt) => {
+    evt.preventDefault();
+    profileName.textContent = profileNameInput.value;
+    profileDescription.textContent = profileDescriptionInput.value;
     closePopup(popupEditProfile);
   }
 
-  const submitCardInfo = () => {
-    cardsList.prepend(createCard(popupAddCard.querySelector('input[name="name"]').value, popupAddCard.querySelector('input[name="link"]').value));
-    popupAddCard.querySelector('input[name="name"]').value = "";
-    popupAddCard.querySelector('input[name="link"]').value = "";
+  const submitCardInfo = (evt) => {
+    evt.preventDefault();
+    cardsList.prepend(createCard(cardNameInput.value, cardLinkInput.value));
+    cardNameInput.value = "";
+    cardLinkInput.value = "";
     closePopup(popupAddCard);
   }
 
