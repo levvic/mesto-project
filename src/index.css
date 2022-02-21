@@ -1,0 +1,37 @@
+@import url(../vendor/normalize.css);
+@import url(../vendor/fonts.css);
+@import url(../blocks/page/page.css);
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__logo/header__logo.css);
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__picture/profile__picture.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__name/profile__name.css);
+@import url(../blocks/profile/__description/profile__description.css);
+@import url(../blocks/profile/__edit-btn/profile__edit-btn.css);
+@import url(../blocks/profile/__add-card-btn/profile__add-card-btn.css);
+@import url(../blocks/locations/locations.css);
+@import url(../blocks/location-cards/location-cards.css);
+@import url(../blocks/location-card/location-card.css);
+@import url(../blocks/location-card/__image/location-card__image.css);
+@import url(../blocks/location-card/__description/location-card__description.css);
+@import url(../blocks/location-card/__name/location-card__name.css);
+@import url(../blocks/location-card/__like-btn/location-card__like-btn.css);
+@import url(../blocks/location-card/__like-btn/_active/location-card__like-btn_active.css);
+@import url(../blocks/location-card/__delete-btn/location-card__delete-btn.css);
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_type/popup_type_pic-container.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__close-btn/popup__close-btn.css);
+@import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__input/_add-card/form__input_add-card.css);
+@import url(../blocks/form/__save-btn/form__save-btn.css);
+@import url(../blocks/pic-container/pic-container.css);
+@import url(../blocks/pic-container/__image/pic-container__image.css);
+@import url(../blocks/pic-container/__caption/pic-container__caption.css);
+
+
