@@ -1,6 +1,6 @@
 .form__input {
     margin: 0;
-    padding: 0 0 12px 0;
+    padding: 25px 0 12px 0;
     width: 100%;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -10,8 +10,8 @@
     outline: none;
 }
 
-.form__input:first-child {
-  margin-bottom: 25px;
+.form__input:first-of-type {
+  padding-top: 0;
 }
 
 .form__input::-webkit-input-placeholder {color:#000000;}
