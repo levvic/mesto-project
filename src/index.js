@@ -1,6 +1,9 @@
 import './index.css';
 import enableValidation from './components/validate.js';
+import { closePopup } from './components/modal.js';
 import { addInitialCards } from './components/card.js';
+
+const allModals = document.querySelectorAll('.popup');
 
 const validationConfig = {
   formSelector: '.form',
@@ -14,3 +17,12 @@ const validationConfig = {
 enableValidation(validationConfig);
 
 addInitialCards();
+
+
+allModals.forEach(function (popup) {
+  popup.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-btn')) {
+      closePopup(popup);
+    }
+  });
+});

@@ -1,13 +1,12 @@
 import { popupAddCard } from './card.js'
 
-const popupEditProfile = document.querySelector("#popup_edit-profile");
 
+const popupEditProfile = document.querySelector("#popup_edit-profile");
 const popupOpenPic = document.querySelector("#popup_pic");
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const closeProfileFormBtn = document.querySelector("#close_edit-profile");
 const closeCardFormBtn = document.querySelector("#close_add-card");
 const closePictureBtn = document.querySelector("#close_show-pic");
-
 const popupImg = document.querySelector('.pic-container__image');
 const imgTitle = document.querySelector('.pic-container__caption');
 const profileName = document.querySelector('.profile__name');
@@ -33,10 +32,15 @@ const openProfilePopup = () => {
 }
 
 
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeOnEsc);
+}
 
-const openPopup = (popup) => popup.classList.add('popup_opened');
-
-const closePopup = (popup) => popup.classList.remove('popup_opened');
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeOnEsc);
+}
 
 const submitProfileInfo = (evt) => {
   evt.preventDefault();
@@ -45,7 +49,14 @@ const submitProfileInfo = (evt) => {
   closePopup(popupEditProfile);
 }
 
+function closeOnEsc(evt) {
+  if (evt.key === 'Escape') {
+    const activePopup = document.querySelector('.popup_opened');
 
+    if(activePopup)
+      closePopup(activePopup);
+  }
+}
 
 editProfileBtn.addEventListener('click', openProfilePopup);
 closeProfileFormBtn.addEventListener('click', () => closePopup(popupEditProfile));
