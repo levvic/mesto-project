@@ -1,6 +1,7 @@
 import { openPicContainer, closePopup, openPopup } from './modal.js';
 import { disableButton } from './validate.js';
 
+const cardTemplate = document.querySelector('#card-template').content;
 const popupAddCard = document.querySelector("#popup_add-card");
 const addCardBtn = document.querySelector('.profile__add-card-btn');
 const cardsList = document.querySelector('.location-cards');
@@ -8,6 +9,12 @@ const cardNameInput = popupAddCard.querySelector('input[name="name"]');
 const cardLinkInput = popupAddCard.querySelector('input[name="link"]');
 const formAddCard = document.querySelector('.form-card');
 const buttonDisabledClass = 'form__save-btn_disabled';
+const likeBtnActiveClass = 'location-card__like-btn_active';
+const newCardSelector = '.location-card';
+const newCardImgSelector = '.location-card__image';
+const newCardNameSelector = '.location-card__name';
+const likeBtnSelector = '.location-card__like-btn';
+const deleteBtnSelector = '.location-card__delete-btn';
 
 // photos
 const initialCards = [
@@ -40,28 +47,26 @@ const initialCards = [
   const addInitialCards = () => initialCards.forEach(card => cardsList.prepend(createCard(card.name, card.link)));
 
   const createCard = (cardName, cardLink) => {
-    const cardTemplate = document.querySelector('#card-template').content;
-    const newCard = cardTemplate.querySelector('.location-card').cloneNode(true);
-    const cardImg = newCard.querySelector('.location-card__image');
-    const cardTitle = newCard.querySelector('.location-card__name');
+    const newCard = cardTemplate.querySelector(newCardSelector).cloneNode(true);
+    const cardImg = newCard.querySelector(newCardImgSelector);
+    const cardTitle = newCard.querySelector(newCardNameSelector);
 
     cardImg.src = cardLink;
     cardImg.alt = cardName;
     cardTitle.textContent = cardName;
 
-    const likeBtn = newCard.querySelector('.location-card__like-btn');
+    const likeBtn = newCard.querySelector(likeBtnSelector);
     likeBtn.addEventListener('click', toggleLikeBtn);
-    const deleteBtn = newCard.querySelector('.location-card__delete-btn');
+    const deleteBtn = newCard.querySelector(deleteBtnSelector);
     deleteBtn.addEventListener('click', deleteCard);
     cardImg.addEventListener('click', openPicContainer);
 
     return newCard;
   }
 
-  const toggleLikeBtn = (evt) => evt.srcElement.classList.toggle("location-card__like-btn_active");
+  const toggleLikeBtn = (evt) => evt.srcElement.classList.toggle(likeBtnActiveClass);
 
   const deleteCard = (evt) => evt.srcElement.parentNode.remove();
-
 
   const submitCardInfo = (evt) => {
     evt.preventDefault();
