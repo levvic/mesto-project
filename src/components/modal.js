@@ -1,12 +1,6 @@
-import { popupAddCard } from './card.js'
-
-
 const popupEditProfile = document.querySelector("#popup_edit-profile");
 const popupOpenPic = document.querySelector("#popup_pic");
 const editProfileBtn = document.querySelector(".profile__edit-btn");
-const closeProfileFormBtn = document.querySelector("#close_edit-profile");
-const closeCardFormBtn = document.querySelector("#close_add-card");
-const closePictureBtn = document.querySelector("#close_show-pic");
 const popupImg = document.querySelector('.pic-container__image');
 const imgTitle = document.querySelector('.pic-container__caption');
 const profileName = document.querySelector('.profile__name');
@@ -59,9 +53,6 @@ function closeOnEsc(evt) {
 }
 
 editProfileBtn.addEventListener('click', openProfilePopup);
-closeProfileFormBtn.addEventListener('click', () => closePopup(popupEditProfile));
-closeCardFormBtn.addEventListener('click', () => closePopup(popupAddCard));
-closePictureBtn.addEventListener('click', () => closePopup(popupOpenPic));
 
 formEditProfile.addEventListener('submit', submitProfileInfo);
 

@@ -1,6 +1,3 @@
-//const { config } = require("webpack");
-
-
 
 const hideInputError = (inputElement, errorElement, config) => {
   inputElement.classList.remove(config.inputInvalidClass);
@@ -36,7 +33,7 @@ const toggleButtonState = (formElement, inputList, config) => {
 
 const hasInvalidInput = (inputList) => inputList.some(inputElement => !inputElement.validity.valid);
 
-const disableButton = (buttonElement, config) => {
+export const disableButton = (buttonElement, config) => {
   buttonElement.classList.add(config.buttonDisabledClass);
   buttonElement.disabled = true;
 };

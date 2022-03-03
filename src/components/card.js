@@ -1,4 +1,5 @@
 import { openPicContainer, closePopup, openPopup } from './modal.js';
+import { disableButton } from './validate.js';
 
 const popupAddCard = document.querySelector("#popup_add-card");
 const addCardBtn = document.querySelector('.profile__add-card-btn');
@@ -6,6 +7,7 @@ const cardsList = document.querySelector('.location-cards');
 const cardNameInput = popupAddCard.querySelector('input[name="name"]');
 const cardLinkInput = popupAddCard.querySelector('input[name="link"]');
 const formAddCard = document.querySelector('.form-card');
+const buttonDisabledClass = 'form__save-btn_disabled';
 
 // photos
 const initialCards = [
@@ -67,7 +69,8 @@ const initialCards = [
     cardNameInput.value = "";
     cardLinkInput.value = "";
     closePopup(popupAddCard);
-  }
+    disableButton(evt.submitter, { buttonDisabledClass });
+  };
 
   const openCardPopup = () => openPopup(popupAddCard);
 
