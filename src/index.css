@@ -18,6 +18,8 @@
 @import url(../blocks/location-card/__image/location-card__image.css);
 @import url(../blocks/location-card/__description/location-card__description.css);
 @import url(../blocks/location-card/__name/location-card__name.css);
+@import url(../blocks/likes-container/likes-container.css);
+@import url(../blocks/location-card/__like-number/location-card__like-number.css);
 @import url(../blocks/location-card/__like-btn/location-card__like-btn.css);
 @import url(../blocks/location-card/__like-btn/_active/location-card__like-btn_active.css);
 @import url(../blocks/location-card/__delete-btn/location-card__delete-btn.css);

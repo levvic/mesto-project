@@ -19,18 +19,18 @@
     <main class="main">
       <section class="profile">
         <img
-          src="<%=require('../images/profile-pic.jpg')%>"
+          src=""
           alt="Профильное фото"
           class="profile__picture"
         />
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name"></h1>
           <button
             type="button"
             class="profile__edit-btn"
             aria-label="Редактировать профиль"
           ></button>
-          <p class="profile__description">Исследователь океана</p>
+          <p class="profile__description"></p>
         </div>
         <button
           type="button"
@@ -50,11 +50,14 @@
               <img src="" alt="" class="location-card__image" />
               <div class="location-card__description">
                 <h2 class="location-card__name"></h2>
+                <div class="likes-container">
                 <button
                   type="button"
                   class="location-card__like-btn"
                   aria-label="Мне нравится"
                 ></button>
+                <div class="location-card__like-number"></div>
+              </div>
               </div>
             </li>
           </template>

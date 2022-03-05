@@ -2,8 +2,12 @@ import './index.css';
 import enableValidation from './components/validate.js';
 import { closePopup } from './components/modal.js';
 import { addInitialCards } from './components/card.js';
+import { getUserInfo } from './components/api.js'
 
 const allModals = document.querySelectorAll('.popup');
+const profileNameElement = document.querySelector('.profile__name');
+const profileDescriptionElement = document.querySelector('.profile__description');
+const profilePictureElement = document.querySelector('.profile__picture');
 
 const validationConfig = {
   formSelector: '.form',
@@ -16,7 +20,16 @@ const validationConfig = {
 
 enableValidation(validationConfig);
 
+const addProfileInfo = () => {
+  getUserInfo()
+  .then(res => renderProfileInfo(res));
+}
+
+// add initial cards from server
 addInitialCards();
+
+//get profile info on page
+addProfileInfo();
 
 
 allModals.forEach(function (popup) {
@@ -26,3 +39,9 @@ allModals.forEach(function (popup) {
     }
   });
 });
+
+const renderProfileInfo = (user) => {
+  profileNameElement.textContent = user.name;
+  profileDescriptionElement.textContent = user.about;
+  profilePictureElement.src = user.avatar;
+}

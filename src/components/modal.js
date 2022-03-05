@@ -1,3 +1,5 @@
+import { patchProfileInfo } from "./api.js";
+
 const popupEditProfile = document.querySelector("#popup_edit-profile");
 const popupOpenPic = document.querySelector("#popup_pic");
 const editProfileBtn = document.querySelector(".profile__edit-btn");
@@ -38,8 +40,12 @@ const closePopup = (popup) => {
 
 const submitProfileInfo = (evt) => {
   evt.preventDefault();
-  profileName.textContent = profileNameInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
+  patchProfileInfo(profileNameInput.value, profileDescriptionInput.value)
+  .then(res => {
+    profileName.textContent = res.name;
+    profileDescription.textContent = res.about;
+  });
+
   closePopup(popupEditProfile);
 }
 
