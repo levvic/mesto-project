@@ -1,6 +1,6 @@
 import { openPicContainer, closePopup, openPopup } from "./modal.js";
 import { disableButton } from "./validate.js";
-import { getCards, postCard } from "./api.js";
+import { getCards, postCard, getUserInfo } from "./api.js";
 
 const cardTemplate = document.querySelector("#card-template").content;
 const popupAddCard = document.querySelector("#popup_add-card");
@@ -19,12 +19,19 @@ const deleteBtnSelector = ".location-card__delete-btn";
 const numberOfLikes = ".location-card__like-number";
 
 const addInitialCards = () => {
-  getCards().then((res) =>
-    res.forEach((card) => cardsList.prepend(createCard(card.name, card.link, card.likes.length)))
-  );
+  const getUserPromise = getUserInfo();
+  const getCardsPromise = getCards();
+  const promises = [getUserPromise, getCardsPromise];
+
+  Promise.all(promises)
+  .then((results) => {
+    const userId = results[0]._id;
+    const cards = results[1];
+    cards.forEach((card) => cardsList.prepend(createCard(card.name, card.link, card.likes.length, card.owner._id === userId)))
+  });
 };
 
-const createCard = (cardName, cardLink, likeNmbr = 0) => {
+const createCard = (cardName, cardLink, likeNmbr = 0, createdByMe = true) => {
   const newCard = cardTemplate.querySelector(newCardSelector).cloneNode(true);
   const cardImg = newCard.querySelector(newCardImgSelector);
   const cardTitle = newCard.querySelector(newCardNameSelector);
@@ -38,7 +45,16 @@ const createCard = (cardName, cardLink, likeNmbr = 0) => {
   const likeBtn = newCard.querySelector(likeBtnSelector);
   likeBtn.addEventListener("click", toggleLikeBtn);
   const deleteBtn = newCard.querySelector(deleteBtnSelector);
-  deleteBtn.addEventListener("click", deleteCard);
+  // user can delete only his own cards
+  if(createdByMe)
+  {
+    deleteBtn.addEventListener("click", deleteCard);
+  }
+  else
+  {
+    deleteBtn.style.display = "none";
+  }
+
   cardImg.addEventListener("click", openPicContainer);
 
   return newCard;
