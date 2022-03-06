@@ -37,7 +37,7 @@ export const patchAvatar = (link) => {
     method: "PATCH",
     headers: config.headers,
     body: JSON.stringify({
-      avatar: link
+      avatar: link,
     }),
   })
     .then((res) => {

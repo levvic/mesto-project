@@ -4,17 +4,20 @@ const popupEditProfile = document.querySelector("#popup_edit-profile");
 const popupOpenPic = document.querySelector("#popup_pic");
 const popupAvatar = document.querySelector("#popup_change-avatar");
 const editProfileBtn = document.querySelector(".profile__edit-btn");
-const popupImg = document.querySelector('.pic-container__image');
-const imgTitle = document.querySelector('.pic-container__caption');
-const profileName = document.querySelector('.profile__name');
-const profileDescription = document.querySelector('.profile__description');
-const formEditProfile = document.querySelector('.form-name');
-const formEditAvatar = document.querySelector('.form-avatar');
+const popupImg = document.querySelector(".pic-container__image");
+const imgTitle = document.querySelector(".pic-container__caption");
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
+const formEditProfile = document.querySelector(".form-name");
+const formEditAvatar = document.querySelector(".form-avatar");
 const profileNameInput = popupEditProfile.querySelector('input[name="name"]');
-const profileDescriptionInput = popupEditProfile.querySelector('input[name="description"]');
+const profileDescriptionInput = popupEditProfile.querySelector(
+  'input[name="description"]'
+);
 const avatarLinkInput = popupAvatar.querySelector('input[name="link"]');
-const profilePictureElement = document.querySelector('.profile__picture');
-
+const profilePictureElement = document.querySelector(".profile__picture");
+const profileSubmitButton = popupEditProfile.querySelector(".form__save-btn");
+const avatarSubmitButton = popupAvatar.querySelector(".form__save-btn");
 
 const openPicContainer = (evt) => {
   popupImg.src = evt.target.src;
@@ -29,50 +32,58 @@ const openProfilePopup = () => {
   profileDescriptionInput.value = profileDescription.textContent;
 
   openPopup(popupEditProfile);
-}
-
+};
 
 const openPopup = (popup) => {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeOnEsc);
-}
+  popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closeOnEsc);
+};
 
 const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeOnEsc);
-}
+  popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closeOnEsc);
+};
 
 const submitProfileInfo = (evt) => {
   evt.preventDefault();
+  profileSubmitButton.textContent = "Сохранение...";
   patchProfileInfo(profileNameInput.value, profileDescriptionInput.value)
-  .then(res => {
-    profileName.textContent = res.name;
-    profileDescription.textContent = res.about;
-  });
+    .then((res) => {
+      profileName.textContent = res.name;
+      profileDescription.textContent = res.about;
+    })
+    .finally(() => {
+      profileSubmitButton.textContent = "Сохранить";
+    });
 
   closePopup(popupEditProfile);
-}
+};
 
 const submitAvatar = (evt) => {
   evt.preventDefault();
+  avatarSubmitButton.textContent = "Сохранение...";
   patchAvatar(avatarLinkInput.value)
-  .then(profilePictureElement.style = `background-image: url(${avatarLinkInput.value})`);
+    .then(
+      (profilePictureElement.style = `background-image: url(${avatarLinkInput.value})`)
+    )
+    .finally(() => {
+      avatarSubmitButton.textContent = "Сохранить";
+    });
 
   closePopup(popupAvatar);
-}
+};
 
 function closeOnEsc(evt) {
-  if (evt.key === 'Escape') {
-    const activePopup = document.querySelector('.popup_opened');
+  if (evt.key === "Escape") {
+    const activePopup = document.querySelector(".popup_opened");
 
-    if(activePopup)
-      closePopup(activePopup);
+    if (activePopup) closePopup(activePopup);
   }
 }
 
-editProfileBtn.addEventListener('click', openProfilePopup);
-formEditProfile.addEventListener('submit', submitProfileInfo);
-formEditAvatar.addEventListener('submit', submitAvatar);
+editProfileBtn.addEventListener("click", openProfilePopup);
+formEditProfile.addEventListener("submit", submitProfileInfo);
+formEditAvatar.addEventListener("submit", submitAvatar);
 
 const openAvatarPopup = () => {
   openPopup(popupAvatar);

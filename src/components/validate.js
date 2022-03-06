@@ -1,8 +1,7 @@
-
 const hideInputError = (inputElement, errorElement, config) => {
   inputElement.classList.remove(config.inputInvalidClass);
   errorElement.classList.remove(config.errorClass);
-  errorElement.textContent = '';
+  errorElement.textContent = "";
 };
 
 const showInputError = (inputElement, errorElement, errorMessage, config) => {
@@ -17,7 +16,12 @@ const checkInputValidity = (formElement, inputElement, config) => {
   if (inputElement.validity.valid) {
     hideInputError(inputElement, errorElement, config);
   } else {
-    showInputError(inputElement, errorElement, inputElement.validationMessage, config);
+    showInputError(
+      inputElement,
+      errorElement,
+      inputElement.validationMessage,
+      config
+    );
   }
 };
 
@@ -31,7 +35,8 @@ const toggleButtonState = (formElement, inputList, config) => {
   }
 };
 
-const hasInvalidInput = (inputList) => inputList.some(inputElement => !inputElement.validity.valid);
+const hasInvalidInput = (inputList) =>
+  inputList.some((inputElement) => !inputElement.validity.valid);
 
 export const disableButton = (buttonElement, config) => {
   buttonElement.classList.add(config.buttonDisabledClass);
@@ -44,10 +49,12 @@ const enableButton = (buttonElement, config) => {
 };
 
 const setEventListeners = (formElement, config) => {
-  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
 
-  inputList.forEach(inputElement => {
-    inputElement.addEventListener('input', () => {
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", () => {
       // validate input
       checkInputValidity(formElement, inputElement, config);
       // check button state
@@ -58,15 +65,14 @@ const setEventListeners = (formElement, config) => {
   toggleButtonState(formElement, inputList, config);
 };
 
-export default function enableValidation(config)
-{
+export default function enableValidation(config) {
   const forms = Array.from(document.querySelectorAll(config.formSelector));
 
-  forms.forEach(formElement => {
-    formElement.addEventListener('submit', event => {
+  forms.forEach((formElement) => {
+    formElement.addEventListener("submit", (event) => {
       event.preventDefault();
     });
 
     setEventListeners(formElement, config);
   });
-};
+}

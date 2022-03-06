@@ -1,6 +1,13 @@
 import { openPicContainer, closePopup, openPopup } from "./modal.js";
 import { disableButton } from "./validate.js";
-import { getCards, postCard, getUserInfo, deleteCard, putLike, deleteLike } from "./api.js";
+import {
+  getCards,
+  postCard,
+  getUserInfo,
+  deleteCard,
+  putLike,
+  deleteLike,
+} from "./api.js";
 
 const cardTemplate = document.querySelector("#card-template").content;
 const popupAddCard = document.querySelector("#popup_add-card");
@@ -8,6 +15,7 @@ const addCardBtn = document.querySelector(".profile__add-card-btn");
 const cardsList = document.querySelector(".location-cards");
 const cardNameInput = popupAddCard.querySelector('input[name="name"]');
 const cardLinkInput = popupAddCard.querySelector('input[name="link"]');
+const newCardSubmitButton = popupAddCard.querySelector(".form__save-btn");
 const formAddCard = document.querySelector(".form-card");
 const buttonDisabledClass = "form__save-btn_disabled";
 const likeBtnActiveClass = "location-card__like-btn_active";
@@ -32,7 +40,7 @@ const addInitialCards = () => {
           card.name,
           card.link,
           card._id,
-          card.likes.some(like => like._id === userId),
+          card.likes.some((like) => like._id === userId),
           card.likes.length,
           card.owner._id === userId
         )
@@ -62,7 +70,7 @@ const createCard = (
   likes.textContent = likeNmbr;
   const likeBtn = newCard.querySelector(likeBtnSelector);
 
-  if(likedByMe){
+  if (likedByMe) {
     likeBtn.classList.add(likeBtnActiveClass);
   }
 
@@ -81,15 +89,17 @@ const createCard = (
 };
 
 const toggleLikeBtn = (evt) => {
-  if (evt.srcElement.classList.contains(likeBtnActiveClass)){
-    deleteLike(evt.srcElement.parentNode.parentNode.parentNode.getAttribute("id"))
-    .then(card => {
+  if (evt.srcElement.classList.contains(likeBtnActiveClass)) {
+    deleteLike(
+      evt.srcElement.parentNode.parentNode.parentNode.getAttribute("id")
+    ).then((card) => {
       updateNumberOfLikes(card._id, card.likes.length);
       evt.srcElement.classList.toggle(likeBtnActiveClass);
     });
   } else {
-    putLike(evt.srcElement.parentNode.parentNode.parentNode.getAttribute("id"))
-    .then(card => {
+    putLike(
+      evt.srcElement.parentNode.parentNode.parentNode.getAttribute("id")
+    ).then((card) => {
       updateNumberOfLikes(card._id, card.likes.length);
       evt.srcElement.classList.toggle(likeBtnActiveClass);
     });
@@ -111,15 +121,18 @@ const removeCard = (evt) => {
 
 const submitCardInfo = (evt) => {
   evt.preventDefault();
-
-  postCard(cardNameInput.value, cardLinkInput.value).then((res) => {
-    cardsList.prepend(createCard(res.name, res.link, res._id));
-  });
-
-  cardNameInput.value = "";
-  cardLinkInput.value = "";
-  closePopup(popupAddCard);
-  disableButton(evt.submitter, { buttonDisabledClass });
+  newCardSubmitButton.textContent = "Создание...";
+  postCard(cardNameInput.value, cardLinkInput.value)
+    .then((res) => {
+      cardsList.prepend(createCard(res.name, res.link, res._id));
+    })
+    .finally(() => {
+      newCardSubmitButton.textContent = "Создать";
+      cardNameInput.value = "";
+      cardLinkInput.value = "";
+      closePopup(popupAddCard);
+      disableButton(evt.submitter, { buttonDisabledClass });
+    });
 };
 
 const openCardPopup = () => openPopup(popupAddCard);
