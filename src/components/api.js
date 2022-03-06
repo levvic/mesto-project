@@ -61,6 +61,19 @@ export const postCard = (name, link) => {
   .catch((res) => showError(res));
 }
 
+export const deleteCard = (cardId) => {
+  return fetch(`https://nomoreparties.co/v1/${cohort}/cards/${cardId}`, {
+    method: "DELETE",
+    headers: {
+      authorization: token,
+    },
+  })
+  .then((res) => {
+    return res.ok;
+  })
+  .catch((res) => showError(res));
+}
+
 const showError = (result) => {
   alert(`${result.status} ${result.statusText}`);
 };

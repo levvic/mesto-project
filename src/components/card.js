@@ -1,6 +1,6 @@
 import { openPicContainer, closePopup, openPopup } from "./modal.js";
 import { disableButton } from "./validate.js";
-import { getCards, postCard, getUserInfo } from "./api.js";
+import { getCards, postCard, getUserInfo, deleteCard } from "./api.js";
 
 const cardTemplate = document.querySelector("#card-template").content;
 const popupAddCard = document.querySelector("#popup_add-card");
@@ -23,19 +23,35 @@ const addInitialCards = () => {
   const getCardsPromise = getCards();
   const promises = [getUserPromise, getCardsPromise];
 
-  Promise.all(promises)
-  .then((results) => {
+  Promise.all(promises).then((results) => {
     const userId = results[0]._id;
     const cards = results[1];
-    cards.forEach((card) => cardsList.prepend(createCard(card.name, card.link, card.likes.length, card.owner._id === userId)))
+    cards.forEach((card) =>
+      cardsList.prepend(
+        createCard(
+          card.name,
+          card.link,
+          card._id,
+          card.likes.length,
+          card.owner._id === userId
+        )
+      )
+    );
   });
 };
 
-const createCard = (cardName, cardLink, likeNmbr = 0, createdByMe = true) => {
+const createCard = (
+  cardName,
+  cardLink,
+  cardId,
+  likeNmbr = 0,
+  createdByMe = true
+) => {
   const newCard = cardTemplate.querySelector(newCardSelector).cloneNode(true);
   const cardImg = newCard.querySelector(newCardImgSelector);
   const cardTitle = newCard.querySelector(newCardNameSelector);
 
+  newCard.setAttribute("id", cardId);
   cardImg.src = cardLink;
   cardImg.alt = cardName;
   cardTitle.textContent = cardName;
@@ -46,12 +62,9 @@ const createCard = (cardName, cardLink, likeNmbr = 0, createdByMe = true) => {
   likeBtn.addEventListener("click", toggleLikeBtn);
   const deleteBtn = newCard.querySelector(deleteBtnSelector);
   // user can delete only his own cards
-  if(createdByMe)
-  {
-    deleteBtn.addEventListener("click", deleteCard);
-  }
-  else
-  {
+  if (createdByMe) {
+    deleteBtn.addEventListener("click", removeCard);
+  } else {
     deleteBtn.style.display = "none";
   }
 
@@ -63,13 +76,19 @@ const createCard = (cardName, cardLink, likeNmbr = 0, createdByMe = true) => {
 const toggleLikeBtn = (evt) =>
   evt.srcElement.classList.toggle(likeBtnActiveClass);
 
-const deleteCard = (evt) => evt.srcElement.parentNode.remove();
+const removeCard = (evt) => {
+  deleteCard(evt.srcElement.parentNode.getAttribute("id")).then((res) => {
+    if (res) {
+      evt.srcElement.parentNode.remove();
+    }
+  });
+};
 
 const submitCardInfo = (evt) => {
   evt.preventDefault();
 
   postCard(cardNameInput.value, cardLinkInput.value).then((res) => {
-    cardsList.prepend(createCard(res.name, res.link));
+    cardsList.prepend(createCard(res.name, res.link, res._id));
   });
 
   cardNameInput.value = "";
