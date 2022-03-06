@@ -74,6 +74,32 @@ export const deleteCard = (cardId) => {
   .catch((res) => showError(res));
 }
 
+export const putLike = (cardId) => {
+  return fetch(`https://nomoreparties.co/v1/${cohort}/cards/likes/${cardId}`, {
+    method: "PUT",
+    headers: {
+      authorization: token,
+    },
+  })
+  .then((res) => {
+    if (res.ok) return res.json();
+  })
+  .catch((res) => showError(res));
+}
+
+export const deleteLike = (cardId) => {
+  return fetch(`https://nomoreparties.co/v1/${cohort}/cards/likes/${cardId}`, {
+    method: "DELETE",
+    headers: {
+      authorization: token,
+    },
+  })
+  .then((res) => {
+    if (res.ok) return res.json();
+  })
+  .catch((res) => showError(res));
+}
+
 const showError = (result) => {
   alert(`${result.status} ${result.statusText}`);
 };

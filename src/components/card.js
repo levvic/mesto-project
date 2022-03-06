@@ -1,6 +1,6 @@
 import { openPicContainer, closePopup, openPopup } from "./modal.js";
 import { disableButton } from "./validate.js";
-import { getCards, postCard, getUserInfo, deleteCard } from "./api.js";
+import { getCards, postCard, getUserInfo, deleteCard, putLike, deleteLike } from "./api.js";
 
 const cardTemplate = document.querySelector("#card-template").content;
 const popupAddCard = document.querySelector("#popup_add-card");
@@ -32,6 +32,7 @@ const addInitialCards = () => {
           card.name,
           card.link,
           card._id,
+          card.likes.some(like => like._id === userId),
           card.likes.length,
           card.owner._id === userId
         )
@@ -44,6 +45,7 @@ const createCard = (
   cardName,
   cardLink,
   cardId,
+  likedByMe = false,
   likeNmbr = 0,
   createdByMe = true
 ) => {
@@ -59,6 +61,11 @@ const createCard = (
   const likes = newCard.querySelector(numberOfLikes);
   likes.textContent = likeNmbr;
   const likeBtn = newCard.querySelector(likeBtnSelector);
+
+  if(likedByMe){
+    likeBtn.classList.add(likeBtnActiveClass);
+  }
+
   likeBtn.addEventListener("click", toggleLikeBtn);
   const deleteBtn = newCard.querySelector(deleteBtnSelector);
   // user can delete only his own cards
@@ -73,8 +80,26 @@ const createCard = (
   return newCard;
 };
 
-const toggleLikeBtn = (evt) =>
-  evt.srcElement.classList.toggle(likeBtnActiveClass);
+const toggleLikeBtn = (evt) => {
+  if (evt.srcElement.classList.contains(likeBtnActiveClass)){
+    deleteLike(evt.srcElement.parentNode.parentNode.parentNode.getAttribute("id"))
+    .then(card => {
+      updateNumberOfLikes(card._id, card.likes.length);
+      evt.srcElement.classList.toggle(likeBtnActiveClass);
+    });
+  } else {
+    putLike(evt.srcElement.parentNode.parentNode.parentNode.getAttribute("id"))
+    .then(card => {
+      updateNumberOfLikes(card._id, card.likes.length);
+      evt.srcElement.classList.toggle(likeBtnActiveClass);
+    });
+  }
+};
+
+const updateNumberOfLikes = (cardId, likesCount) => {
+  const likes = document.getElementById(cardId).querySelector(numberOfLikes);
+  likes.textContent = likesCount;
+};
 
 const removeCard = (evt) => {
   deleteCard(evt.srcElement.parentNode.getAttribute("id")).then((res) => {
