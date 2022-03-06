@@ -1,15 +1,19 @@
-import { patchProfileInfo } from "./api.js";
+import { patchProfileInfo, patchAvatar } from "./api.js";
 
 const popupEditProfile = document.querySelector("#popup_edit-profile");
 const popupOpenPic = document.querySelector("#popup_pic");
+const popupAvatar = document.querySelector("#popup_change-avatar");
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const popupImg = document.querySelector('.pic-container__image');
 const imgTitle = document.querySelector('.pic-container__caption');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const formEditProfile = document.querySelector('.form-name');
+const formEditAvatar = document.querySelector('.form-avatar');
 const profileNameInput = popupEditProfile.querySelector('input[name="name"]');
 const profileDescriptionInput = popupEditProfile.querySelector('input[name="description"]');
+const avatarLinkInput = popupAvatar.querySelector('input[name="link"]');
+const profilePictureElement = document.querySelector('.profile__picture');
 
 
 const openPicContainer = (evt) => {
@@ -49,6 +53,14 @@ const submitProfileInfo = (evt) => {
   closePopup(popupEditProfile);
 }
 
+const submitAvatar = (evt) => {
+  evt.preventDefault();
+  patchAvatar(avatarLinkInput.value)
+  .then(profilePictureElement.style = `background-image: url(${avatarLinkInput.value})`);
+
+  closePopup(popupAvatar);
+}
+
 function closeOnEsc(evt) {
   if (evt.key === 'Escape') {
     const activePopup = document.querySelector('.popup_opened');
@@ -59,8 +71,11 @@ function closeOnEsc(evt) {
 }
 
 editProfileBtn.addEventListener('click', openProfilePopup);
-
 formEditProfile.addEventListener('submit', submitProfileInfo);
+formEditAvatar.addEventListener('submit', submitAvatar);
 
+const openAvatarPopup = () => {
+  openPopup(popupAvatar);
+};
 
-export { openPicContainer, closePopup, openPopup };
+export { openPicContainer, closePopup, openPopup, openAvatarPopup };

@@ -1,0 +1,18 @@
+.profile__picture-overlay {
+  width: 125px;
+  height: 125px;
+  background-color: rgba(0, 0, 0, .8);
+  background-image: url(../../../images/pen.svg);
+  background-repeat: no-repeat;
+  background-size: 26px 26px;
+  background-position: center;
+  opacity: 0;
+  transition: opacity .5s ease;
+  margin-left: -7px;
+  margin-top: -5px;
+}
+
+
+.profile__picture-overlay:hover {
+  opacity: 1;
+}

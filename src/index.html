@@ -18,11 +18,9 @@
     </header>
     <main class="main">
       <section class="profile">
-        <img
-          src=""
-          alt="Профильное фото"
-          class="profile__picture"
-        />
+        <button class="profile__picture">
+          <div class="profile__picture-overlay"></div>
+        </button>
         <div class="profile__info">
           <h1 class="profile__name"></h1>
           <button
@@ -140,6 +138,33 @@
           <span id="error-link" class="error-message"></span>
           <button type="submit" class="form__save-btn" aria-label="Создать">
             Создать
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div id="popup_change-avatar" class="popup">
+      <div class="popup__container">
+        <button
+          type="button"
+          id="close_change-avatar"
+          class="popup__close-btn"
+          aria-label="Закрыть"
+        ></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="form form-avatar" name="change-avatar" novalidate>
+          <input
+            required
+            pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
+            id="link"
+            name="link"
+            type="text"
+            class="form__input form__input_change-avatar"
+            placeholder="Ссылка на фото"
+          />
+          <span id="error-link" class="error-message"></span>
+          <button type="submit" class="form__save-btn" aria-label="Сохранить">
+            Сохранить
           </button>
         </form>
       </div>

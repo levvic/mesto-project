@@ -7,6 +7,7 @@
 @import url(../blocks/error-message/_visible/error-message_visible.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__picture/profile__picture.css);
+@import url(../blocks/profile/__picture-overlay/profile__picture-overlay.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__description/profile__description.css);

@@ -1,6 +1,6 @@
 import './index.css';
 import enableValidation from './components/validate.js';
-import { closePopup } from './components/modal.js';
+import { closePopup, openAvatarPopup } from './components/modal.js';
 import { addInitialCards } from './components/card.js';
 import { getUserInfo } from './components/api.js'
 
@@ -43,5 +43,6 @@ allModals.forEach(function (popup) {
 const renderProfileInfo = (user) => {
   profileNameElement.textContent = user.name;
   profileDescriptionElement.textContent = user.about;
-  profilePictureElement.src = user.avatar;
+  profilePictureElement.style = `background-image: url(${user.avatar})`;
+  profilePictureElement.addEventListener('click', openAvatarPopup);
 }
