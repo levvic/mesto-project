@@ -11,10 +11,7 @@ export const getUserInfo = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
   })
-    .then((res) => {
-      if (res.ok) return res.json();
-    })
-    .catch((res) => showError(res));
+  .then(checkResponse);
 };
 
 export const patchProfileInfo = (name, description) => {
@@ -26,10 +23,7 @@ export const patchProfileInfo = (name, description) => {
       about: description,
     }),
   })
-    .then((res) => {
-      if (res.ok) return res.json();
-    })
-    .catch((res) => showError(res));
+  .then(checkResponse);
 };
 
 export const patchAvatar = (link) => {
@@ -40,20 +34,14 @@ export const patchAvatar = (link) => {
       avatar: link,
     }),
   })
-    .then((res) => {
-      if (res.ok) return res.json();
-    })
-    .catch((res) => showError(res));
+  .then(checkResponse);
 };
 
 export const getCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers,
   })
-    .then((res) => {
-      if (res.ok) return res.json();
-    })
-    .catch((res) => showError(res));
+  .then(checkResponse);
 };
 
 export const postCard = (name, link) => {
@@ -65,10 +53,7 @@ export const postCard = (name, link) => {
       link: link,
     }),
   })
-    .then((res) => {
-      if (res.ok) return res.json();
-    })
-    .catch((res) => showError(res));
+  .then(checkResponse);
 };
 
 export const deleteCard = (cardId) => {
@@ -76,10 +61,7 @@ export const deleteCard = (cardId) => {
     method: "DELETE",
     headers: config.headers,
   })
-    .then((res) => {
-      return res.ok;
-    })
-    .catch((res) => showError(res));
+  .then(checkResponse);
 };
 
 export const putLike = (cardId) => {
@@ -87,10 +69,7 @@ export const putLike = (cardId) => {
     method: "PUT",
     headers: config.headers,
   })
-    .then((res) => {
-      if (res.ok) return res.json();
-    })
-    .catch((res) => showError(res));
+  .then(checkResponse);
 };
 
 export const deleteLike = (cardId) => {
@@ -98,12 +77,13 @@ export const deleteLike = (cardId) => {
     method: "DELETE",
     headers: config.headers,
   })
-    .then((res) => {
-      if (res.ok) return res.json();
-    })
-    .catch((res) => showError(res));
+    .then(checkResponse);
 };
 
-const showError = (result) => {
-  alert(`${result.status} ${result.statusText}`);
+const checkResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+
+  return Promise.reject(`Ошибка ${res.status}`);
 };

@@ -51,26 +51,32 @@ const submitProfileInfo = (evt) => {
     .then((res) => {
       profileName.textContent = res.name;
       profileDescription.textContent = res.about;
+      closePopup(popupEditProfile);
+    })
+    .catch(err => {
+      alert('Ошибка');
+      console.log(err);
     })
     .finally(() => {
       profileSubmitButton.textContent = "Сохранить";
     });
-
-  closePopup(popupEditProfile);
 };
 
 const submitAvatar = (evt) => {
   evt.preventDefault();
   avatarSubmitButton.textContent = "Сохранение...";
   patchAvatar(avatarLinkInput.value)
-    .then(
-      (profilePictureElement.style = `background-image: url(${avatarLinkInput.value})`)
-    )
+    .then(() => {
+      profilePictureElement.style = `background-image: url(${avatarLinkInput.value})`;
+      closePopup(popupAvatar);
+    })
+    .catch(err => {
+      alert('Ошибка');
+      console.log(err);
+    })
     .finally(() => {
       avatarSubmitButton.textContent = "Сохранить";
     });
-
-  closePopup(popupAvatar);
 };
 
 function closeOnEsc(evt) {
