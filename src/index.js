@@ -43,9 +43,10 @@ allModals.forEach(function (popup) {
   });
 });
 
+profilePictureElement.addEventListener("click", openAvatarPopup);
+
 const renderProfileInfo = (user) => {
   profileNameElement.textContent = user.name;
   profileDescriptionElement.textContent = user.about;
   profilePictureElement.style = `background-image: url(${user.avatar})`;
-  profilePictureElement.addEventListener("click", openAvatarPopup);
 };

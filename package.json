@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -37,6 +39,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "core-js": "^3.21.1"
+    "core-js": "^3.21.1",
+    "gh-pages": "^3.2.3"
   }
 }
