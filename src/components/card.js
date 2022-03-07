@@ -1,9 +1,7 @@
 import { openPicContainer, closePopup, openPopup } from "./modal.js";
 import { disableButton } from "./validate.js";
 import {
-  getCards,
   postCard,
-  getUserInfo,
   deleteCard,
   putLike,
   deleteLike,
@@ -26,30 +24,7 @@ const likeBtnSelector = ".location-card__like-btn";
 const deleteBtnSelector = ".location-card__delete-btn";
 const numberOfLikes = ".location-card__like-number";
 
-const addInitialCards = () => {
-  const getUserPromise = getUserInfo();
-  const getCardsPromise = getCards();
-  const promises = [getUserPromise, getCardsPromise];
-
-  Promise.all(promises).then((results) => {
-    const userId = results[0]._id;
-    const cards = results[1];
-    cards.forEach((card) =>
-      cardsList.prepend(
-        createCard(
-          card.name,
-          card.link,
-          card._id,
-          card.likes.some((like) => like._id === userId),
-          card.likes.length,
-          card.owner._id === userId
-        )
-      )
-    );
-  });
-};
-
-const createCard = (
+export const createCard = (
   cardName,
   cardLink,
   cardId,
@@ -74,7 +49,30 @@ const createCard = (
     likeBtn.classList.add(likeBtnActiveClass);
   }
 
-  likeBtn.addEventListener("click", toggleLikeBtn);
+  likeBtn.addEventListener("click", () => {
+    if (likeBtn.classList.contains(likeBtnActiveClass)) {
+      deleteLike(cardId)
+        .then((card) => {
+          updateNumberOfLikes(card._id, card.likes.length);
+          likeBtn.classList.toggle(likeBtnActiveClass);
+        })
+        .catch((err) => {
+          alert("Ошибка");
+          console.log(err);
+        });
+    } else {
+      putLike(cardId)
+        .then((card) => {
+          updateNumberOfLikes(card._id, card.likes.length);
+          likeBtn.classList.toggle(likeBtnActiveClass);
+        })
+        .catch((err) => {
+          alert("Ошибка");
+          console.log(err);
+        });
+    }
+  });
+
   const deleteBtn = newCard.querySelector(deleteBtnSelector);
   // user can delete only his own cards
   if (createdByMe) {
@@ -84,26 +82,7 @@ const createCard = (
   }
 
   cardImg.addEventListener("click", openPicContainer);
-
   return newCard;
-};
-
-const toggleLikeBtn = (evt) => {
-  if (evt.srcElement.classList.contains(likeBtnActiveClass)) {
-    deleteLike(
-      evt.srcElement.parentNode.parentNode.parentNode.getAttribute("id")
-    ).then((card) => {
-      updateNumberOfLikes(card._id, card.likes.length);
-      evt.srcElement.classList.toggle(likeBtnActiveClass);
-    });
-  } else {
-    putLike(
-      evt.srcElement.parentNode.parentNode.parentNode.getAttribute("id")
-    ).then((card) => {
-      updateNumberOfLikes(card._id, card.likes.length);
-      evt.srcElement.classList.toggle(likeBtnActiveClass);
-    });
-  }
 };
 
 const updateNumberOfLikes = (cardId, likesCount) => {
@@ -112,10 +91,16 @@ const updateNumberOfLikes = (cardId, likesCount) => {
 };
 
 const removeCard = (evt) => {
-  deleteCard(evt.srcElement.parentNode.getAttribute("id")).then((res) => {
+  const card = evt.srcElement.closest('.location-card');
+  deleteCard(card.id)
+  .then((res) => {
     if (res) {
-      evt.srcElement.parentNode.remove();
+      card.remove();
     }
+  })
+  .catch((err) => {
+    alert("Ошибка");
+    console.log(err);
   });
 };
 
@@ -125,13 +110,17 @@ const submitCardInfo = (evt) => {
   postCard(cardNameInput.value, cardLinkInput.value)
     .then((res) => {
       cardsList.prepend(createCard(res.name, res.link, res._id));
-    })
-    .finally(() => {
-      newCardSubmitButton.textContent = "Создать";
       cardNameInput.value = "";
       cardLinkInput.value = "";
       closePopup(popupAddCard);
       disableButton(evt.submitter, { buttonDisabledClass });
+    })
+    .catch((err) => {
+      alert("Ошибка");
+      console.log(err);
+    })
+    .finally(() => {
+      newCardSubmitButton.textContent = "Создать";
     });
 };
 
@@ -139,5 +128,3 @@ const openCardPopup = () => openPopup(popupAddCard);
 
 formAddCard.addEventListener("submit", submitCardInfo);
 addCardBtn.addEventListener("click", openCardPopup);
-
-export { addInitialCards, popupAddCard };

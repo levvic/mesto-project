@@ -1,14 +1,9 @@
 import "./index.css";
 import enableValidation from "./components/validate.js";
 import { closePopup, openAvatarPopup } from "./components/modal.js";
-import { addInitialCards } from "./components/card.js";
-import { getUserInfo } from "./components/api.js";
+import { getInitialData } from "./components/utils.js";
 
 const allModals = document.querySelectorAll(".popup");
-const profileNameElement = document.querySelector(".profile__name");
-const profileDescriptionElement = document.querySelector(
-  ".profile__description"
-);
 const profilePictureElement = document.querySelector(".profile__picture");
 
 const validationConfig = {
@@ -22,15 +17,8 @@ const validationConfig = {
 
 enableValidation(validationConfig);
 
-const addProfileInfo = () => {
-  getUserInfo().then((res) => renderProfileInfo(res));
-};
-
-// add initial cards from server
-addInitialCards();
-
-//get profile info on page
-addProfileInfo();
+// get initial info from server
+getInitialData();
 
 allModals.forEach(function (popup) {
   popup.addEventListener("click", function (evt) {
@@ -44,9 +32,3 @@ allModals.forEach(function (popup) {
 });
 
 profilePictureElement.addEventListener("click", openAvatarPopup);
-
-const renderProfileInfo = (user) => {
-  profileNameElement.textContent = user.name;
-  profileDescriptionElement.textContent = user.about;
-  profilePictureElement.style = `background-image: url(${user.avatar})`;
-};
