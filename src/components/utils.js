@@ -1,13 +1,17 @@
 import {
   getCards,
   getUserInfo
-} from "./api.js";
-import { createCard } from "./card.js";
+} from "./Api.js";
 
-const cardsList = document.querySelector(".location-cards");
-const profileNameElement = document.querySelector(".profile__name");
-const profileDescriptionElement = document.querySelector(".profile__description");
-const profilePictureElement = document.querySelector(".profile__picture");
+import { createCard } from "./Card.js";
+
+import {
+  cardsList,
+  profileNameElement,
+  profileDescriptionElement,
+  profilePictureElement
+} from "../utils/constants.js";
+
 
 export const getInitialData = () => {
 

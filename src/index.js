@@ -1,10 +1,8 @@
 import "./index.css";
-import enableValidation from "./components/validate.js";
-import { closePopup, openAvatarPopup } from "./components/modal.js";
+import enableValidation from "./components/FormValidator.js";
+import { closePopup, openAvatarPopup } from "./components/Modal.js";
 import { getInitialData } from "./components/utils.js";
-
-const allModals = document.querySelectorAll(".popup");
-const profilePictureElement = document.querySelector(".profile__picture");
+import { allModals, profilePictureElement } from "./utils/constants.js";
 
 const validationConfig = {
   formSelector: ".form",

@@ -1,23 +1,22 @@
-import { patchProfileInfo, patchAvatar } from "./api.js";
-
-const popupEditProfile = document.querySelector("#popup_edit-profile");
-const popupOpenPic = document.querySelector("#popup_pic");
-const popupAvatar = document.querySelector("#popup_change-avatar");
-const editProfileBtn = document.querySelector(".profile__edit-btn");
-const popupImg = document.querySelector(".pic-container__image");
-const imgTitle = document.querySelector(".pic-container__caption");
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
-const formEditProfile = document.querySelector(".form-name");
-const formEditAvatar = document.querySelector(".form-avatar");
-const profileNameInput = popupEditProfile.querySelector('input[name="name"]');
-const profileDescriptionInput = popupEditProfile.querySelector(
-  'input[name="description"]'
-);
-const avatarLinkInput = popupAvatar.querySelector('input[name="link"]');
-const profilePictureElement = document.querySelector(".profile__picture");
-const profileSubmitButton = popupEditProfile.querySelector(".form__save-btn");
-const avatarSubmitButton = popupAvatar.querySelector(".form__save-btn");
+import { patchProfileInfo, patchAvatar } from "./Api.js";
+import {
+  popupEditProfile,
+  popupOpenPic,
+  popupAvatar,
+  editProfileBtn,
+  popupImg,
+  imgTitle,
+  profileName,
+  profileDescription,
+  formEditProfile,
+  formEditAvatar,
+  profileNameInput,
+  profileDescriptionInput,
+  avatarLinkInput,
+  profilePictureElement,
+  profileSubmitButton,
+  avatarSubmitButton,
+} from "../utils/constants.js";
 
 const openPicContainer = (evt) => {
   popupImg.src = evt.target.src;
@@ -53,8 +52,8 @@ const submitProfileInfo = (evt) => {
       profileDescription.textContent = res.about;
       closePopup(popupEditProfile);
     })
-    .catch(err => {
-      alert('Ошибка');
+    .catch((err) => {
+      alert("Ошибка");
       console.log(err);
     })
     .finally(() => {
@@ -70,8 +69,8 @@ const submitAvatar = (evt) => {
       profilePictureElement.style = `background-image: url(${avatarLinkInput.value})`;
       closePopup(popupAvatar);
     })
-    .catch(err => {
-      alert('Ошибка');
+    .catch((err) => {
+      alert("Ошибка");
       console.log(err);
     })
     .finally(() => {
