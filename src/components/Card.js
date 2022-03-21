@@ -1,13 +1,9 @@
 import {
-  openPicContainer,
-  closePopup,
-  openPopup
-} from "./Modal.js";
-import {
   disableButton
 } from "./FormValidator.js";
-// import { postCard, deleteCard, putLike, deleteLike } from "./Api.js";
+
 import Api from "./Api.js";
+import Modal from "./Modal.js";
 
 import {
   cardTemplate,
@@ -28,9 +24,10 @@ import {
   numberOfLikes,
 } from "../utils/constants.js";
 
-class Card {
+export default class Card {
   constructor() {
     this._api = new Api();
+    this._modal = new Modal();
   }
 
   createCard(
@@ -62,7 +59,7 @@ class Card {
       if (likeBtn.classList.contains(likeBtnActiveClass)) {
         this._api.deleteLike(cardId)
           .then((card) => {
-            updateNumberOfLikes(card._id, card.likes.length);
+            this.updateNumberOfLikes(card._id, card.likes.length);
             likeBtn.classList.toggle(likeBtnActiveClass);
           })
           .catch((err) => {
@@ -72,7 +69,7 @@ class Card {
       } else {
         this._api.putLike(cardId)
           .then((card) => {
-            updateNumberOfLikes(card._id, card.likes.length);
+            this.updateNumberOfLikes(card._id, card.likes.length);
             likeBtn.classList.toggle(likeBtnActiveClass);
           })
           .catch((err) => {
@@ -85,12 +82,12 @@ class Card {
     const deleteBtn = newCard.querySelector(deleteBtnSelector);
     // user can delete only his own cards
     if (createdByMe) {
-      deleteBtn.addEventListener("click", removeCard);
+      deleteBtn.addEventListener("click", this.removeCard);
     } else {
       deleteBtn.style.display = "none";
     }
 
-    cardImg.addEventListener("click", openPicContainer);
+    cardImg.addEventListener("click", this._modal.openPicContainer);
     return newCard;
   };
 
@@ -121,7 +118,7 @@ class Card {
         cardsList.prepend(createCard(res.name, res.link, res._id));
         cardNameInput.value = "";
         cardLinkInput.value = "";
-        closePopup(popupAddCard);
+        this._modal.closePopup(popupAddCard);
         disableButton(evt.submitter, {
           buttonDisabledClass
         });
@@ -136,7 +133,7 @@ class Card {
   };
 
   openCardPopup() {
-    openPopup(popupAddCard)
+    this._modal.openPopup(popupAddCard)
   };
 
   //  formAddCard.addEventListener("submit", submitCardInfo);

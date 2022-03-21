@@ -1,6 +1,6 @@
 import "./index.css";
 import enableValidation from "./components/FormValidator.js";
-import { closePopup, openAvatarPopup } from "./components/Modal.js";
+import Modal from "./components/Modal.js";
 import { getInitialData } from "./components/utils.js";
 import { allModals, profilePictureElement } from "./utils/constants.js";
 
@@ -24,9 +24,9 @@ allModals.forEach(function (popup) {
       evt.target.classList.contains("popup") ||
       evt.target.classList.contains("popup__close-btn")
     ) {
-      closePopup(popup);
+      new Modal().closePopup(popup);
     }
   });
 });
 
-profilePictureElement.addEventListener("click", openAvatarPopup);
+profilePictureElement.addEventListener("click", new Modal().openAvatarPopup);

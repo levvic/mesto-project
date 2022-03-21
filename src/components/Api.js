@@ -14,7 +14,7 @@ export default class Api {
     return fetch(`${this._config.baseUrl}/users/me`, {
         headers: this._config.headers,
       })
-      .then(_checkResponse);
+      .then(this._checkResponse);
   };
 
   patchProfileInfo(name, description) {
@@ -26,7 +26,7 @@ export default class Api {
           about: description,
         }),
       })
-      .then(_checkResponse);
+      .then(this._checkResponse);
   };
 
   patchAvatar(link) {
@@ -37,14 +37,14 @@ export default class Api {
           avatar: link,
         }),
       })
-      .then(_checkResponse);
+      .then(this._checkResponse);
   };
 
   getCards() {
     return fetch(`${this._config.baseUrl}/cards`, {
         headers: this._config.headers,
       })
-      .then(_checkResponse);
+      .then(this._checkResponse);
   };
 
   postCard(name, link) {
@@ -56,7 +56,7 @@ export default class Api {
           link: link,
         }),
       })
-      .then(_checkResponse);
+      .then(this._checkResponse);
   };
 
   deleteCard(cardId) {
@@ -64,7 +64,7 @@ export default class Api {
         method: "DELETE",
         headers: this._config.headers,
       })
-      .then(_checkResponse);
+      .then(this._checkResponse);
   };
 
   putLike(cardId) {
@@ -72,7 +72,7 @@ export default class Api {
         method: "PUT",
         headers: this._config.headers,
       })
-      .then(_checkResponse);
+      .then(this._checkResponse);
   };
 
   deleteLike(cardId) {
@@ -80,7 +80,7 @@ export default class Api {
         method: "DELETE",
         headers: this._config.headers,
       })
-      .then(_checkResponse);
+      .then(this._checkResponse);
   };
 
   _checkResponse(res) {

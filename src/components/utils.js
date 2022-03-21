@@ -1,12 +1,5 @@
-// import {
-//   getCards,
-//   getUserInfo
-// } from "./Api.js";
-
 import Api from "./Api.js";
-import {
-  createCard
-} from "./Card.js";
+import Card from "./Card.js";
 
 import {
   cardsList,
@@ -27,7 +20,7 @@ export const getInitialData = () => {
       const userId = userData._id;
       cards.forEach((card) =>
         cardsList.prepend(
-          createCard(
+          new Card().createCard(
             card.name,
             card.link,
             card._id,

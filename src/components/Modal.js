@@ -1,7 +1,3 @@
-// import {
-//   patchProfileInfo,
-//   patchAvatar
-// } from "./Api.js";
 import Api from "./Api.js";
 import {
   popupEditProfile,
@@ -22,7 +18,7 @@ import {
   avatarSubmitButton
 } from "../utils/constants.js";
 
-class Modal {
+export default class Modal {
   constructor() {
     this._api = new Api();
   }
@@ -32,24 +28,24 @@ class Modal {
     popupImg.alt = evt.target.alt;
     imgTitle.textContent = evt.target.alt;
 
-    openPopup(popupOpenPic);
+    this.openPopup(popupOpenPic);
   };
 
   openProfilePopup() {
     profileNameInput.value = profileName.textContent;
     profileDescriptionInput.value = profileDescription.textContent;
 
-    openPopup(popupEditProfile);
+    this.openPopup(popupEditProfile);
   };
 
   openPopup(popup) {
     popup.classList.add("popup_opened");
-    document.addEventListener("keydown", closeOnEsc);
+    document.addEventListener("keydown", this.closeOnEsc);
   };
 
   closePopup(popup) {
     popup.classList.remove("popup_opened");
-    document.removeEventListener("keydown", closeOnEsc);
+    document.removeEventListener("keydown", this.closeOnEsc);
   };
 
   submitProfileInfo(evt) {
@@ -59,7 +55,7 @@ class Modal {
       .then((res) => {
         profileName.textContent = res.name;
         profileDescription.textContent = res.about;
-        closePopup(popupEditProfile);
+        this.closePopup(popupEditProfile);
       })
       .catch((err) => {
         alert("Ошибка");
@@ -76,7 +72,7 @@ class Modal {
     this._api.patchAvatar(avatarLinkInput.value)
       .then(() => {
         profilePictureElement.style = `background-image: url(${avatarLinkInput.value})`;
-        closePopup(popupAvatar);
+        this.closePopup(popupAvatar);
       })
       .catch((err) => {
         alert("Ошибка");
@@ -91,7 +87,8 @@ class Modal {
     if (evt.key === "Escape") {
       const activePopup = document.querySelector(".popup_opened");
 
-      if (activePopup) closePopup(activePopup);
+      if (activePopup)
+        this.closePopup(activePopup);
     }
   }
 
@@ -100,6 +97,6 @@ class Modal {
   //formEditAvatar.addEventListener("submit", submitAvatar);
 
   openAvatarPopup() {
-    openPopup(popupAvatar);
+    this.openPopup(popupAvatar);
   };
 }
