@@ -1,7 +1,4 @@
-import {
-  disableButton
-} from "./FormValidator.js";
-
+import FormValidator from "./FormValidator.js";
 import Api from "./Api.js";
 import Modal from "./Modal.js";
 
@@ -28,6 +25,9 @@ export default class Card {
   constructor() {
     this._api = new Api();
     this._modal = new Modal();
+    this._validator = new FormValidator({
+      buttonDisabledClass
+    });
   }
 
   createCard(
@@ -119,9 +119,7 @@ export default class Card {
         cardNameInput.value = "";
         cardLinkInput.value = "";
         this._modal.closePopup(popupAddCard);
-        disableButton(evt.submitter, {
-          buttonDisabledClass
-        });
+        this._validator.disableButton(evt.submitter);
       })
       .catch((err) => {
         alert("Ошибка");

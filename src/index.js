@@ -1,8 +1,13 @@
 import "./index.css";
-import enableValidation from "./components/FormValidator.js";
+import FormValidator from "./components/FormValidator.js";
 import Modal from "./components/Modal.js";
-import { getInitialData } from "./components/utils.js";
-import { allModals, profilePictureElement } from "./utils/constants.js";
+import {
+  getInitialData
+} from "./components/utils.js";
+import {
+  allModals,
+  profilePictureElement
+} from "./utils/constants.js";
 
 const validationConfig = {
   formSelector: ".form",
@@ -13,7 +18,7 @@ const validationConfig = {
   buttonDisabledClass: "form__save-btn_disabled",
 };
 
-enableValidation(validationConfig);
+new FormValidator(validationConfig).enableValidation();
 
 // get initial info from server
 getInitialData();
