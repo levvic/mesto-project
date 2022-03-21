@@ -1,89 +1,93 @@
-const token = "bc5524e6-2f6e-4891-adc9-e477685018b2";
-const config = {
-  baseUrl: "https://nomoreparties.co/v1/plus-cohort7",
-  headers: {
-    authorization: token,
-    "Content-Type": "application/json",
-  },
-};
-
-export const getUserInfo = () => {
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: config.headers,
-  })
-  .then(checkResponse);
-};
-
-export const patchProfileInfo = (name, description) => {
-  return fetch(`${config.baseUrl}/users/me`, {
-    method: "PATCH",
-    headers: config.headers,
-    body: JSON.stringify({
-      name: name,
-      about: description,
-    }),
-  })
-  .then(checkResponse);
-};
-
-export const patchAvatar = (link) => {
-  return fetch(`${config.baseUrl}/users/me/avatar`, {
-    method: "PATCH",
-    headers: config.headers,
-    body: JSON.stringify({
-      avatar: link,
-    }),
-  })
-  .then(checkResponse);
-};
-
-export const getCards = () => {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers,
-  })
-  .then(checkResponse);
-};
-
-export const postCard = (name, link) => {
-  return fetch(`${config.baseUrl}/cards`, {
-    method: "POST",
-    headers: config.headers,
-    body: JSON.stringify({
-      name: name,
-      link: link,
-    }),
-  })
-  .then(checkResponse);
-};
-
-export const deleteCard = (cardId) => {
-  return fetch(`${config.baseUrl}/cards/${cardId}`, {
-    method: "DELETE",
-    headers: config.headers,
-  })
-  .then(checkResponse);
-};
-
-export const putLike = (cardId) => {
-  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
-    method: "PUT",
-    headers: config.headers,
-  })
-  .then(checkResponse);
-};
-
-export const deleteLike = (cardId) => {
-  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
-    method: "DELETE",
-    headers: config.headers,
-  })
-    .then(checkResponse);
-};
-
-const checkResponse = (res) => {
-  if (res.ok) {
-    return res.json();
+export default class Api {
+  constructor() {
+    this._token = "bc5524e6-2f6e-4891-adc9-e477685018b2";
+    this._config = {
+      baseUrl: "https://nomoreparties.co/v1/plus-cohort7",
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      }
+    };
   }
 
-  return Promise.reject(`Ошибка ${res.status}`);
-};
+  getUserInfo() {
+    return fetch(`${this._config.baseUrl}/users/me`, {
+        headers: this._config.headers,
+      })
+      .then(_checkResponse);
+  };
+
+  patchProfileInfo(name, description) {
+    return fetch(`${this._config.baseUrl}/users/me`, {
+        method: "PATCH",
+        headers: this._config.headers,
+        body: JSON.stringify({
+          name: name,
+          about: description,
+        }),
+      })
+      .then(_checkResponse);
+  };
+
+  patchAvatar(link) {
+    return fetch(`${this._config.baseUrl}/users/me/avatar`, {
+        method: "PATCH",
+        headers: this._config.headers,
+        body: JSON.stringify({
+          avatar: link,
+        }),
+      })
+      .then(_checkResponse);
+  };
+
+  getCards() {
+    return fetch(`${this._config.baseUrl}/cards`, {
+        headers: this._config.headers,
+      })
+      .then(_checkResponse);
+  };
+
+  postCard(name, link) {
+    return fetch(`${this._config.baseUrl}/cards`, {
+        method: "POST",
+        headers: this._config.headers,
+        body: JSON.stringify({
+          name: name,
+          link: link,
+        }),
+      })
+      .then(_checkResponse);
+  };
+
+  deleteCard(cardId) {
+    return fetch(`${this._config.baseUrl}/cards/${cardId}`, {
+        method: "DELETE",
+        headers: this._config.headers,
+      })
+      .then(_checkResponse);
+  };
+
+  putLike(cardId) {
+    return fetch(`${this._config.baseUrl}/cards/likes/${cardId}`, {
+        method: "PUT",
+        headers: this._config.headers,
+      })
+      .then(_checkResponse);
+  };
+
+  deleteLike(cardId) {
+    return fetch(`${this._config.baseUrl}/cards/likes/${cardId}`, {
+        method: "DELETE",
+        headers: this._config.headers,
+      })
+      .then(_checkResponse);
+  };
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка ${res.status}`);
+  };
+}

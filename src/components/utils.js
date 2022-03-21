@@ -1,9 +1,12 @@
-import {
-  getCards,
-  getUserInfo
-} from "./Api.js";
+// import {
+//   getCards,
+//   getUserInfo
+// } from "./Api.js";
 
-import { createCard } from "./Card.js";
+import Api from "./Api.js";
+import {
+  createCard
+} from "./Card.js";
 
 import {
   cardsList,
@@ -15,30 +18,30 @@ import {
 
 export const getInitialData = () => {
 
-  Promise.all([getUserInfo(), getCards()])
-  .then(([userData, cards]) => {
-    //render avatar
-    renderProfileInfo(userData);
+  Promise.all([new Api().getUserInfo(), new Api().getCards()])
+    .then(([userData, cards]) => {
+      //render avatar
+      renderProfileInfo(userData);
 
-    // add cards from server
-    const userId = userData._id;
-    cards.forEach((card) =>
-      cardsList.prepend(
-        createCard(
-          card.name,
-          card.link,
-          card._id,
-          card.likes.some((like) => like._id === userId),
-          card.likes.length,
-          card.owner._id === userId
+      // add cards from server
+      const userId = userData._id;
+      cards.forEach((card) =>
+        cardsList.prepend(
+          createCard(
+            card.name,
+            card.link,
+            card._id,
+            card.likes.some((like) => like._id === userId),
+            card.likes.length,
+            card.owner._id === userId
+          )
         )
-      )
-    );
-  })
-  .catch((err) => {
-    alert("Ошибка");
-    console.log(err);
-  });
+      );
+    })
+    .catch((err) => {
+      alert("Ошибка");
+      console.log(err);
+    });
 };
 
 const renderProfileInfo = (user) => {
