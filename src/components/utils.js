@@ -1,5 +1,6 @@
 import Api from "./Api.js";
 import Card from "./Card.js";
+import Modal from "./Modal.js"
 
 import {
   cardsList,
@@ -8,12 +9,16 @@ import {
   profilePictureElement,
   cardNameInput,
   cardLinkInput,
+  popupAddCard
 } from "../utils/constants.js";
 
 
 export const getInitialData = () => {
 
   const api = new Api();
+  const modal = new Modal();
+
+
 
   Promise.all([api.getUserInfo(), api.getCards()])
     .then(([userData, cards]) => {
@@ -28,7 +33,12 @@ export const getInitialData = () => {
             putLike: () => api.putLike(card._id),
             deleteLike: () => api.deleteLike(card._id),
             postCard: () => api.postCard(cardNameInput.value, cardLinkInput.value),
-            deleteCard: () => api.deleteCard(card._id)
+            deleteCard: () => api.deleteCard(card._id),
+
+            openPopup: () => modal.openPopup(popupAddCard),
+            closePopup: () => modal.closePopup(popupAddCard),
+            openPicContainer: () => modal.openPicContainer()
+
           }).createCard(
             card.name,
             card.link,

@@ -21,14 +21,16 @@ import {
 } from "../utils/constants.js";
 
 export default class Card {
-  constructor( { putLike, deleteLike, postCard, deleteCard }) {
+  constructor( { putLike, deleteLike, postCard, deleteCard, openPopup, closePopup, openPicContainer }) {
     this._putLike = putLike;
     this._deleteLike = deleteLike;
     this._postCard = postCard;
     this._deleteCard = deleteCard;
 
+    this._openPopup = openPopup;
+    this._closePopup = closePopup;
+    this._openPicContainer = openPicContainer;
 
-    this._modal = new Modal();
     this._validator = new FormValidator({
       buttonDisabledClass
     });
@@ -91,7 +93,7 @@ export default class Card {
       deleteBtn.style.display = "none";
     }
 
-    cardImg.addEventListener("click", this._modal.openPicContainer);
+    cardImg.addEventListener("click", this._openPicContainer);
     return newCard;
   };
 
@@ -122,7 +124,7 @@ export default class Card {
         cardsList.prepend(createCard(res.name, res.link, res._id));
         cardNameInput.value = "";
         cardLinkInput.value = "";
-        this._modal.closePopup(popupAddCard);
+        this._closePopup();
         this._validator.disableButton(evt.submitter);
       })
       .catch((err) => {
@@ -135,7 +137,7 @@ export default class Card {
   };
 
   openCardPopup() {
-    this._modal.openPopup(popupAddCard)
+    this._openPopup()
   };
 
   //formAddCard.addEventListener("submit", submitCardInfo);
