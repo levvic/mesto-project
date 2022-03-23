@@ -1,5 +1,4 @@
 import FormValidator from "./FormValidator.js";
-import Api from "./Api.js";
 import Modal from "./Modal.js";
 
 import {
@@ -22,8 +21,13 @@ import {
 } from "../utils/constants.js";
 
 export default class Card {
-  constructor() {
-    this._api = new Api();
+  constructor( { putLike, deleteLike, postCard, deleteCard }) {
+    this._putLike = putLike;
+    this._deleteLike = deleteLike;
+    this._postCard = postCard;
+    this._deleteCard = deleteCard;
+
+
     this._modal = new Modal();
     this._validator = new FormValidator({
       buttonDisabledClass
@@ -57,7 +61,7 @@ export default class Card {
 
     likeBtn.addEventListener("click", () => {
       if (likeBtn.classList.contains(likeBtnActiveClass)) {
-        this._api.deleteLike(cardId)
+        this._deleteLike()
           .then((card) => {
             this.updateNumberOfLikes(card._id, card.likes.length);
             likeBtn.classList.toggle(likeBtnActiveClass);
@@ -67,7 +71,7 @@ export default class Card {
             console.log(err);
           });
       } else {
-        this._api.putLike(cardId)
+        this._putLike()
           .then((card) => {
             this.updateNumberOfLikes(card._id, card.likes.length);
             likeBtn.classList.toggle(likeBtnActiveClass);
@@ -98,7 +102,7 @@ export default class Card {
 
   removeCard(evt) {
     const card = evt.srcElement.closest(".location-card");
-    this._api.deleteCard(card.id)
+    this._deleteCard()
       .then((res) => {
         if (res) {
           card.remove();
@@ -113,7 +117,7 @@ export default class Card {
   submitCardInfo(evt) {
     evt.preventDefault();
     newCardSubmitButton.textContent = "Создание...";
-    this._api.postCard(cardNameInput.value, cardLinkInput.value)
+    this._postCard()
       .then((res) => {
         cardsList.prepend(createCard(res.name, res.link, res._id));
         cardNameInput.value = "";
@@ -134,7 +138,7 @@ export default class Card {
     this._modal.openPopup(popupAddCard)
   };
 
-  //  formAddCard.addEventListener("submit", submitCardInfo);
+  //formAddCard.addEventListener("submit", submitCardInfo);
   //  addCardBtn.addEventListener("click", openCardPopup);
 
 }

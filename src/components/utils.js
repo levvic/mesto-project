@@ -5,13 +5,17 @@ import {
   cardsList,
   profileNameElement,
   profileDescriptionElement,
-  profilePictureElement
+  profilePictureElement,
+  cardNameInput,
+  cardLinkInput,
 } from "../utils/constants.js";
 
 
 export const getInitialData = () => {
 
-  Promise.all([new Api().getUserInfo(), new Api().getCards()])
+  const api = new Api();
+
+  Promise.all([api.getUserInfo(), api.getCards()])
     .then(([userData, cards]) => {
       //render avatar
       renderProfileInfo(userData);
@@ -20,7 +24,12 @@ export const getInitialData = () => {
       const userId = userData._id;
       cards.forEach((card) =>
         cardsList.prepend(
-          new Card().createCard(
+          new Card({
+            putLike: () => api.putLike(card._id),
+            deleteLike: () => api.deleteLike(card._id),
+            postCard: () => api.postCard(cardNameInput.value, cardLinkInput.value),
+            deleteCard: () => api.deleteCard(card._id)
+          }).createCard(
             card.name,
             card.link,
             card._id,
