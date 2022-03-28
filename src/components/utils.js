@@ -1,6 +1,5 @@
 import Api from "./Api.js";
 import Card from "./Card.js";
-import Modal from "./Modal.js"
 
 import {
   cardsList,
@@ -15,10 +14,15 @@ import {
 
 export const getInitialData = () => {
 
-  const api = new Api();
-  const modal = new Modal();
+  const config = {
+    baseUrl: "https://nomoreparties.co/v1/plus-cohort7",
+    headers: {
+      authorization: "bc5524e6-2f6e-4891-adc9-e477685018b2",
+      "Content-Type": "application/json",
+    }
+  };
 
-
+  const api = new Api(config);
 
   Promise.all([api.getUserInfo(), api.getCards()])
     .then(([userData, cards]) => {
@@ -35,9 +39,9 @@ export const getInitialData = () => {
             postCard: () => api.postCard(cardNameInput.value, cardLinkInput.value),
             deleteCard: () => api.deleteCard(card._id),
 
-            openPopup: () => modal.openPopup(popupAddCard),
-            closePopup: () => modal.closePopup(popupAddCard),
-            openPicContainer: () => modal.openPicContainer()
+            // openPopup: () => popup.openPopup(popupAddCard),
+            // closePopup: () => popup.closePopup(popupAddCard),
+            // openPicContainer: () => popup.openPopup()
 
           }).createCard(
             card.name,

@@ -1,5 +1,4 @@
 import FormValidator from "./FormValidator.js";
-import Modal from "./Modal.js";
 
 import {
   cardTemplate,
@@ -21,15 +20,23 @@ import {
 } from "../utils/constants.js";
 
 export default class Card {
-  constructor( { putLike, deleteLike, postCard, deleteCard, openPopup, closePopup, openPicContainer }) {
+  constructor({
+    putLike,
+    deleteLike,
+    postCard,
+    deleteCard,
+    openPopup,
+    closePopup,
+    openPicContainer
+  }) {
     this._putLike = putLike;
     this._deleteLike = deleteLike;
     this._postCard = postCard;
     this._deleteCard = deleteCard;
 
-    this._openPopup = openPopup;
+    /*this._openPopup = openPopup;
     this._closePopup = closePopup;
-    this._openPicContainer = openPicContainer;
+    this._openPicContainer = openPicContainer;*/
 
     this._validator = new FormValidator({
       buttonDisabledClass
@@ -93,7 +100,7 @@ export default class Card {
       deleteBtn.style.display = "none";
     }
 
-    cardImg.addEventListener("click", this._openPicContainer);
+    //cardImg.addEventListener("click", this._openPicContainer);
     return newCard;
   };
 
@@ -116,7 +123,7 @@ export default class Card {
       });
   };
 
-  submitCardInfo(evt) {
+  /*submitCardInfo(evt) {
     evt.preventDefault();
     newCardSubmitButton.textContent = "Создание...";
     this._postCard()
@@ -134,11 +141,11 @@ export default class Card {
       .finally(() => {
         newCardSubmitButton.textContent = "Создать";
       });
-  };
+  }; */
 
-  openCardPopup() {
+  /*openCardPopup() {
     this._openPopup()
-  };
+  }; */
 
   //formAddCard.addEventListener("submit", submitCardInfo);
   //  addCardBtn.addEventListener("click", openCardPopup);
