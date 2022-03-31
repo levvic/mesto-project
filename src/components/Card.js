@@ -5,7 +5,7 @@ import {
   cardImgSelector,
   likeBtnActiveClass,
   newCardNameSelector
-} from "./utils/constants.js";
+} from "../utils/constants.js";
 
 export default class Card {
   constructor({
@@ -80,7 +80,7 @@ export default class Card {
     }
   }
 
-  createCard() {
+  createCardElement() {
     this._newCardElement = this._getTemplate();
     this._setEventListeners(this._newCardElement);
     this._hideDeleteBtn(this._newCardElement);
