@@ -1,7 +1,6 @@
 import {
   likeBtnSelector,
   deleteBtnSelector,
-  numberOfLikesSelector,
   cardImgSelector,
   likeBtnActiveClass,
   newCardNameSelector
@@ -37,41 +36,35 @@ export default class Card {
     return cardElement;
   }
 
-  _setEventListeners(element) {
-    const deleteBtn = element.querySelector(deleteBtnSelector);
-    this._likeBtn = element.querySelector(likeBtnSelector);
-    const img = element.querySelector(cardImgSelector);
+  _setEventListeners() {
+    this._deleteBtn = this._newCardElement.querySelector(deleteBtnSelector);
+    this._likeBtn = this._newCardElement.querySelector(likeBtnSelector);
+    this._img = this._newCardElement.querySelector(cardImgSelector);
 
-    deleteBtn.addEventListener('click', () => {
-      this._handleDeleteCard(element, this._id)
+    this._deleteBtn.addEventListener('click', () => {
+      this._handleDeleteCard(this._newCardElement, this._id)
     });
 
     this._likeBtn.addEventListener('click', () => {
       this._handleLikeCard(this._id);
     });
 
-    img.addEventListener('click', (evt) => {
+    this._img.addEventListener('click', (evt) => {
       this._handleCardClick(evt);
     });
-
-    //this._deleteBtn = element.querySelector(deleteBtnSelector);
-    //this._
   }
 
-  _hideDeleteBtn(newCard) {
-    const deleteBtn = newCard.querySelector(deleteBtnSelector);
+  _hideDeleteBtn() {
     // user can delete only his own cards
     if (!this._createdByMe) {
-      deleteBtn.style.display = "none";
+      this._deleteBtn.style.display = "none";
     }
   }
 
   updateLikeCounter(isCardLiked, likeNumber) {
     this._likedByMe = isCardLiked;
     this._likeNmbr = likeNumber;
-
-    const likeNmbrElement = this._newCardElement.querySelector(numberOfLikesSelector);
-    likeNmbrElement.textContent = likeNumber;
+    this._likeBtn.nextElementSibling.textContent = likeNumber;
 
     if (this._likedByMe) {
       this._likeBtn.classList.add(likeBtnActiveClass);
@@ -82,16 +75,17 @@ export default class Card {
 
   createCardElement() {
     this._newCardElement = this._getTemplate();
-    this._setEventListeners(this._newCardElement);
+    this._newCardElement.querySelector("li").id = this._id;
+
+    this._setEventListeners();
     this._hideDeleteBtn(this._newCardElement);
     this.updateLikeCounter(this._likedByMe, this._likeNmbr);
 
-    const imgElement = this._newCardElement.querySelector(cardImgSelector);
+    this._img = this._newCardElement.querySelector(cardImgSelector);
     const titleElement = this._newCardElement.querySelector(newCardNameSelector);
 
-    this._newCardElement.setAttribute("id", this._id);
-    imgElement.src = this._link;
-    imgElement.alt = this._name;
+    this._img.src = this._link;
+    this._img.alt = this._name;
     titleElement.textContent = this._name;
 
     return this._newCardElement;

@@ -14,7 +14,6 @@ export default class Section {
   }
 
   renderItems() {
-    const itemsToRender = this._renderedItems;
-    Array.prototype.forEach.call(itemsToRender, item => this._renderer(item));
+    this._renderedItems.forEach(item => this._renderer(item));
   }
 }

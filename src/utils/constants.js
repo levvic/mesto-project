@@ -13,8 +13,7 @@ export const popupImg = document.querySelector(".pic-container__image");
 export const imgTitle = document.querySelector(".pic-container__caption");
 export const profileName = document.querySelector(".profile__name");
 export const profileDescription = document.querySelector(".profile__description");
-export const formEditProfile = document.querySelector(".form-name");
-export const formEditAvatar = document.querySelector(".form-avatar");
+
 export const profileNameInput = popupEditProfile.querySelector('input[name="name"]');
 export const profileDescriptionInput = popupEditProfile.querySelector('input[name="description"]');
 export const avatarLinkInput = popupAvatar.querySelector('input[name="link"]');
@@ -27,7 +26,7 @@ export const addCardBtn = document.querySelector(".profile__add-card-btn");
 export const cardNameInput = popupAddCard.querySelector('input[name="name"]');
 export const cardLinkInput = popupAddCard.querySelector('input[name="link"]');
 export const newCardSubmitButton = popupAddCard.querySelector(".form__save-btn");
-export const formAddCard = document.querySelector(".form-card");
+
 export const buttonDisabledClass = "form__save-btn_disabled";
 export const likeBtnActiveClass = "location-card__like-btn_active";
 export const newCardSelector = ".location-card";
@@ -36,3 +35,7 @@ export const newCardNameSelector = ".location-card__name";
 export const likeBtnSelector = ".location-card__like-btn";
 export const deleteBtnSelector = ".location-card__delete-btn";
 export const numberOfLikesSelector = ".location-card__like-number";
+
+export const formAddCardSelector = ".form-card";
+export const formEditProfileSelector = ".form-name";
+export const formEditAvatarSelector = ".form-avatar";
