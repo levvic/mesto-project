@@ -1,7 +1,7 @@
-export const cardsList = document.querySelector(".location-cards");
-export const profileNameElement = document.querySelector(".profile__name");
-export const profileDescriptionElement = document.querySelector(".profile__description");
-export const profilePictureElement = document.querySelector(".profile__picture");
+export const cardsListSelector = ".location-cards";
+export const profileNameSelector = ".profile__name";
+export const profileDescriptionSelector = ".profile__description";
+export const profilePictureSelector = ".profile__picture";
 
 export const allModals = document.querySelectorAll(".popup");
 
@@ -21,7 +21,7 @@ export const avatarLinkInput = popupAvatar.querySelector('input[name="link"]');
 export const profileSubmitButton = popupEditProfile.querySelector(".form__save-btn");
 export const avatarSubmitButton = popupAvatar.querySelector(".form__save-btn");
 
-export const cardTemplate = document.querySelector("#card-template").content;
+export const cardTemplate = "#card-template";
 export const popupAddCard = document.querySelector("#popup_add-card");
 export const addCardBtn = document.querySelector(".profile__add-card-btn");
 export const cardNameInput = popupAddCard.querySelector('input[name="name"]');
