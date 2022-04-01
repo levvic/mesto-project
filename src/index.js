@@ -159,7 +159,8 @@ const renderCard = function (cardData, userData, templateSelector) {
 const popupEditAvatar = new PopupWithForm("#popup_change-avatar", (value) => {
   avatarSubmitButton.textContent = "Сохранение...";
   api.patchAvatar(value.link)
-    .then(() => {
+    .then((dataAboutUser) => {
+      user.setUserInfo(dataAboutUser.name, dataAboutUser.about, dataAboutUser.avatar);
       popupEditAvatar.closePopup();
     })
     .catch(error => console.log(error))
@@ -191,7 +192,8 @@ addCardBtn.addEventListener("click", () => popupAddCard.openPopup());
 const profilePopup = new PopupWithForm('#popup_edit-profile', (value) => {
   profileSubmitButton.textContent = "Сохранение...";
   api.patchProfileInfo(value.name, value.description)
-    .then(() => {
+    .then((dataAboutUser) => {
+      user.setUserInfo(dataAboutUser.name, dataAboutUser.about, dataAboutUser.avatar);
       profilePopup.closePopup();
     })
     .catch(error => console.log(error))
