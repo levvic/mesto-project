@@ -32,7 +32,7 @@ export default class Card {
   }
 
   _getTemplate() {
-    const cardElement = this._cardTemplateElement.content.cloneNode(true);
+    const cardElement = this._cardTemplateElement.content.cloneNode(true).querySelector("li");
     return cardElement;
   }
 
@@ -75,7 +75,7 @@ export default class Card {
 
   createCardElement() {
     this._newCardElement = this._getTemplate();
-    this._newCardElement.querySelector("li").id = this._id;
+    this._newCardElement.id = this._id;
 
     this._setEventListeners();
     this._hideDeleteBtn(this._newCardElement);

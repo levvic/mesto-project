@@ -77,7 +77,7 @@ Promise.all(promises)
     user.setUserInfo(userData.name, userData.about, userData.avatar);
 
     const sectionWithCards = new Section({
-      items:  cards,
+      items: cards,
       renderer: (cardData) => {
 
         // get prepeared card
@@ -104,50 +104,50 @@ Promise.all(promises)
 const renderCard = function (cardData, userData, templateSelector) {
 
   const card = new Card({
-    id: cardData._id,
-    name: cardData.name,
-    link: cardData.link,
-    likeNmbr: cardData.likes.length,
-    likedByMe: cardData.likes.some(like => like._id === userData._id),
-    createdByMe: cardData.owner._id === userData._id,
-    handleCardClick: (evt) => {
-      picturePopup.openPopup(evt)
-    },
-    handleDeleteCard: (element, cardId) => {
-      api.deleteCard(cardId)
-        .then((res) => {
-          if (res) {
-            element.remove();
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-    },
-    handleLikeCard: (cardId) => {
+      id: cardData._id,
+      name: cardData.name,
+      link: cardData.link,
+      likeNmbr: cardData.likes.length,
+      likedByMe: cardData.likes.some(like => like._id === userData._id),
+      createdByMe: cardData.owner._id === userData._id,
+      handleCardClick: (evt) => {
+        picturePopup.openPopup(evt)
+      },
+      handleDeleteCard: (element, cardId) => {
+        api.deleteCard(cardId)
+          .then((res) => {
+            if (res) {
+              element.remove();
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      },
+      handleLikeCard: (cardId) => {
 
-      if (cardData.likes.some(like => like._id === userData._id)) {
-        api.deleteLike(cardId)
-          .then((data) => {
-            card.updateLikeCounter(data.likes.some(like => like._id === userData._id), data.likes.length);
-          })
-          .catch((err) => {
-            alert("Ошибка");
-            console.log(err);
-          });
-      } else {
-        api.putLike(cardId)
-          .then((data) => {
-            card.updateLikeCounter(data.likes.some(like => like._id === userData._id), data.likes.length);
-          })
-          .catch((err) => {
-            alert("Ошибка");
-            console.log(err);
-          });
+        if (cardData.likes.some(like => like._id === userData._id)) {
+          api.deleteLike(cardId)
+            .then((data) => {
+              card.updateLikeCounter(data.likes.some(like => like._id === userData._id), data.likes.length);
+            })
+            .catch((err) => {
+              alert("Ошибка");
+              console.log(err);
+            });
+        } else {
+          api.putLike(cardId)
+            .then((data) => {
+              card.updateLikeCounter(data.likes.some(like => like._id === userData._id), data.likes.length);
+            })
+            .catch((err) => {
+              alert("Ошибка");
+              console.log(err);
+            });
+        }
+
       }
-
-    }
-  },
+    },
     templateSelector
   );
 
@@ -207,6 +207,3 @@ editProfileBtn.addEventListener("click", () => profilePopup.openPopup());
 //picture popup
 const picturePopup = new PopupWithImage('#popup_pic');
 picturePopup.setEventListeners();
-
-
-
