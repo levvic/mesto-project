@@ -16,7 +16,7 @@
 .locations{margin:0 0 67px}@media (max-width:768px){.locations{margin-bottom:55px}}
 .location-cards{display:grid;gap:23px 17px;grid-template-columns:repeat(3,1fr);justify-items:center;margin:0;padding:0}@media (max-width:900px){.location-cards{grid-template-columns:repeat(2,1fr)}}@media (max-width:768px){.location-cards{gap:21px;grid-template-columns:1fr}}
 .location-card{background:#fff;border-radius:10px;position:relative;width:282px}
-.location-card__image{background:#fff;border-radius:10px 10px 0 0;height:282px;-o-object-fit:cover;object-fit:cover;width:282px}
+.location-card__image{background:#fff;border-radius:10px 10px 0 0;display:block;height:282px;-o-object-fit:cover;object-fit:cover;width:282px}
 .location-card__description{display:flex;justify-content:space-between;padding:0 20px 0 21px}
 .location-card__name{color:#000;font-size:24px;font-weight:900;line-height:29px;margin:0;max-width:190px;overflow:hidden;padding:25px 0 31px;text-overflow:ellipsis;white-space:nowrap}
 .likes-container{display:flex;flex-direction:column;justify-content:space-between;padding:22px 0}
