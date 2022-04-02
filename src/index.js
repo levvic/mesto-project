@@ -53,18 +53,18 @@ const user = new UserInfo({
   avatarSelector: profilePictureSelector
 });
 
-const sectionWithCards = new Section({
+const sectionObj = new Section({
   items: {},
   renderer: (cardData, userData) => {
 
-    // get prepeared card
-    const card = renderCard(cardData, userData, cardTemplate);
+    // get prepared card
+    const card = renderCard(cardData, userData._id, cardTemplate);
 
     // get element of card
     const cardElement = card.createCardElement();
 
     // add element to DOM
-    sectionWithCards.addItem(cardElement);
+    sectionObj.addItem(cardElement);
   }
 }, cardsListSelector);
 
@@ -74,14 +74,14 @@ Promise.all(promises)
   .then(([userData, cards]) => {
 
     // render profile info
-    user.setUserInfo(userData.name, userData.about, userData.avatar);
+    user.setUserInfo(userData._id, userData.name, userData.about, userData.avatar);
 
     const sectionWithCards = new Section({
       items: cards,
       renderer: (cardData) => {
 
-        // get prepeared card
-        const card = renderCard(cardData, userData, cardTemplate);
+        // get prepared card
+        const card = renderCard(cardData, userData._id, cardTemplate);
 
         // get element of card
         const cardElement = card.createCardElement();
@@ -101,15 +101,15 @@ Promise.all(promises)
 
 
 
-const renderCard = function (cardData, userData, templateSelector) {
+const renderCard = function (cardData, userId, templateSelector) {
 
   const card = new Card({
       id: cardData._id,
       name: cardData.name,
       link: cardData.link,
       likeNmbr: cardData.likes.length,
-      likedByMe: cardData.likes.some(like => like._id === userData._id),
-      createdByMe: cardData.owner._id === userData._id,
+      likedByMe: cardData.likes.some(like => like._id === userId),
+      createdByMe: cardData.owner._id === userId,
       handleCardClick: (evt) => {
         picturePopup.openPopup(evt)
       },
@@ -126,10 +126,10 @@ const renderCard = function (cardData, userData, templateSelector) {
       },
       handleLikeCard: (cardId) => {
 
-        if (cardData.likes.some(like => like._id === userData._id)) {
+        if (cardData.likes.some(like => like._id === userId)) {
           api.deleteLike(cardId)
             .then((data) => {
-              card.updateLikeCounter(data.likes.some(like => like._id === userData._id), data.likes.length);
+              card.updateLikeCounter(data.likes.some(like => like._id === userId), data.likes.length);
             })
             .catch((err) => {
               alert("Ошибка");
@@ -138,7 +138,7 @@ const renderCard = function (cardData, userData, templateSelector) {
         } else {
           api.putLike(cardId)
             .then((data) => {
-              card.updateLikeCounter(data.likes.some(like => like._id === userData._id), data.likes.length);
+              card.updateLikeCounter(data.likes.some(like => like._id === userId), data.likes.length);
             })
             .catch((err) => {
               alert("Ошибка");
@@ -160,7 +160,7 @@ const popupEditAvatar = new PopupWithForm("#popup_change-avatar", (value) => {
   avatarSubmitButton.textContent = "Сохранение...";
   api.patchAvatar(value.link)
     .then((dataAboutUser) => {
-      user.setUserInfo(dataAboutUser.name, dataAboutUser.about, dataAboutUser.avatar);
+      user.setUserInfo(dataAboutUser._id, dataAboutUser.name, dataAboutUser.about, dataAboutUser.avatar);
       popupEditAvatar.closePopup();
     })
     .catch(error => console.log(error))
@@ -177,7 +177,17 @@ const popupAddCard = new PopupWithForm("#popup_add-card", (value) => {
   newCardSubmitButton.textContent = "Создание...";
   console.log(value);
   api.postCard(value.name, value.link)
-    .then(() => {
+    .then((newCardObj) => {
+
+      // get prepeared card
+      const card = renderCard(newCardObj, user._id, cardTemplate);
+
+      // get element of card
+      const cardElement = card.createCardElement();
+
+      // add element to DOM
+      sectionObj.addItem(cardElement);
+
       popupAddCard.closePopup();
     })
     .catch(error => console.log(error))
@@ -193,7 +203,7 @@ const profilePopup = new PopupWithForm('#popup_edit-profile', (value) => {
   profileSubmitButton.textContent = "Сохранение...";
   api.patchProfileInfo(value.name, value.description)
     .then((dataAboutUser) => {
-      user.setUserInfo(dataAboutUser.name, dataAboutUser.about, dataAboutUser.avatar);
+      user.setUserInfo(dataAboutUser._id, dataAboutUser.name, dataAboutUser.about, dataAboutUser.avatar);
       profilePopup.closePopup();
     })
     .catch(error => console.log(error))

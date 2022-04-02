@@ -12,6 +12,7 @@ export default class UserInfo {
   getUserInfo() {
 
     const user = {
+      id: this._id,
       name: this._userNameElement.textContent,
       about: this._userDescriptionElement.textContent
     }
@@ -19,7 +20,8 @@ export default class UserInfo {
     return user;
   }
 
-  setUserInfo(name, about, avatarLink) {
+  setUserInfo(id, name, about, avatarLink) {
+    this._id = id;
     this._userNameElement.textContent = name;
     this._userDescriptionElement.textContent = about;
     this._profilePictureElement.style = `background-image: url(${avatarLink})`;
