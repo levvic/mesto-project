@@ -126,7 +126,7 @@ const renderCard = function (cardData, userId, templateSelector) {
       },
       handleLikeCard: (cardId) => {
 
-        if (cardData.likes.some(like => like._id === userId)) {
+        if (card.isCardLikedByMe()) {
           api.deleteLike(cardId)
             .then((data) => {
               card.updateLikeCounter(data.likes.some(like => like._id === userId), data.likes.length);

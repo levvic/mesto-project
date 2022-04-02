@@ -73,6 +73,10 @@ export default class Card {
     }
   }
 
+  isCardLikedByMe(){
+    return this._likedByMe;
+  }
+
   createCardElement() {
     this._newCardElement = this._getTemplate();
     this._newCardElement.id = this._id;
