@@ -44,7 +44,6 @@ export default class Card {
   _setEventListeners() {
     this._deleteBtn = this._newCardElement.querySelector(this._deleteBtnSelector);
     this._likeBtn = this._newCardElement.querySelector(this._likeBtnSelector);
-    this._img = this._newCardElement.querySelector(this._cardImgSelector);
 
     this._deleteBtn.addEventListener('click', () => {
       this._handleDeleteCard(this._newCardElement, this._id)
@@ -85,17 +84,16 @@ export default class Card {
   createCardElement() {
     this._newCardElement = this._getTemplate();
     this._newCardElement.id = this._id;
-
-    this._setEventListeners();
-    this._hideDeleteBtn(this._newCardElement);
-    this.updateLikeCounter(this._likedByMe, this._likeNmbr);
-
     this._img = this._newCardElement.querySelector(this._cardImgSelector);
-    const titleElement = this._newCardElement.querySelector(this._newCardNameSelector);
+    this.titleElement = this._newCardElement.querySelector(this._newCardNameSelector);
 
     this._img.src = this._link;
     this._img.alt = this._name;
-    titleElement.textContent = this._name;
+    this.titleElement.textContent = this._name;
+
+    this._setEventListeners();
+    this._hideDeleteBtn();
+    this.updateLikeCounter(this._likedByMe, this._likeNmbr);
 
     return this._newCardElement;
   };
