@@ -39,3 +39,11 @@ export const numberOfLikesSelector = ".location-card__like-number";
 export const formAddCardSelector = ".form-card";
 export const formEditProfileSelector = ".form-name";
 export const formEditAvatarSelector = ".form-avatar";
+
+export const validationConfig = {
+  inputSelector: ".form__input",
+  errorClass: "error-message_visible",
+  inputInvalidClass: "form__input_invalid",
+  buttonSelector: ".form__save-btn",
+  buttonDisabledClass: "form__save-btn_disabled",
+};

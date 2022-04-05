@@ -24,17 +24,10 @@ import {
   cardImgSelector,
   likeBtnActiveClass,
   newCardNameSelector,
-  newCardSelector
+  newCardSelector,
+  validationConfig
 } from "./utils/constants.js";
 import UserInfo from "./components/UserInfo";
-
-const validationConfig = {
-  inputSelector: ".form__input",
-  errorClass: "error-message_visible",
-  inputInvalidClass: "form__input_invalid",
-  buttonSelector: ".form__save-btn",
-  buttonDisabledClass: "form__save-btn_disabled",
-};
 
 const cardFormValidator = new FormValidator(validationConfig, formAddCardSelector);
 cardFormValidator.enableValidation();
