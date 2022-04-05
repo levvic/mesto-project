@@ -111,7 +111,7 @@ const renderCard = function (cardData, userId, templateSelector) {
         if (card.isCardLikedByMe()) {
           api.deleteLike(cardId)
             .then((data) => {
-              card.updateLikeCounter(data.likes.some(like => like._id === userId), data.likes.length);
+              card.updateLikeCounter(!card.isCardLikedByMe(), data.likes.length);
             })
             .catch((err) => {
               alert("Ошибка");
@@ -120,7 +120,7 @@ const renderCard = function (cardData, userId, templateSelector) {
         } else {
           api.putLike(cardId)
             .then((data) => {
-              card.updateLikeCounter(data.likes.some(like => like._id === userId), data.likes.length);
+              card.updateLikeCounter(!card.isCardLikedByMe(), data.likes.length);
             })
             .catch((err) => {
               alert("Ошибка");
