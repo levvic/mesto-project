@@ -18,7 +18,12 @@ import {
   profilePictureSelector,
   formAddCardSelector,
   formEditProfileSelector,
-  formEditAvatarSelector
+  formEditAvatarSelector,
+  likeBtnSelector,
+  deleteBtnSelector,
+  cardImgSelector,
+  likeBtnActiveClass,
+  newCardNameSelector
 } from "./utils/constants.js";
 import UserInfo from "./components/UserInfo";
 
@@ -148,7 +153,12 @@ const renderCard = function (cardData, userId, templateSelector) {
 
       }
     },
-    templateSelector
+    templateSelector,
+    likeBtnSelector,
+    deleteBtnSelector,
+    cardImgSelector,
+    likeBtnActiveClass,
+    newCardNameSelector
   );
 
   return card;
