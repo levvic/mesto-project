@@ -23,7 +23,8 @@ import {
   deleteBtnSelector,
   cardImgSelector,
   likeBtnActiveClass,
-  newCardNameSelector
+  newCardNameSelector,
+  newCardSelector
 } from "./utils/constants.js";
 import UserInfo from "./components/UserInfo";
 
@@ -158,7 +159,8 @@ const renderCard = function (cardData, userId, templateSelector) {
     deleteBtnSelector,
     cardImgSelector,
     likeBtnActiveClass,
-    newCardNameSelector
+    newCardNameSelector,
+    newCardSelector
   );
 
   return card;

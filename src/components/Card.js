@@ -14,7 +14,8 @@ export default class Card {
     deleteBtnSelector,
     cardImgSelector,
     likeBtnActiveClass,
-    newCardNameSelector) {
+    newCardNameSelector,
+    cardSelector) {
     this._id = id;
     this._name = name;
     this._link = link;
@@ -31,11 +32,12 @@ export default class Card {
     this._deleteBtnSelector = deleteBtnSelector,
     this._cardImgSelector = cardImgSelector,
     this._likeBtnActiveClass = likeBtnActiveClass,
-    this._newCardNameSelector = newCardNameSelector
+    this._newCardNameSelector = newCardNameSelector,
+    this._cardSelector = cardSelector
   }
 
   _getTemplate() {
-    const cardElement = this._cardTemplateElement.content.cloneNode(true).querySelector("li");
+    const cardElement = this._cardTemplateElement.content.querySelector(this._cardSelector).cloneNode(true);
     return cardElement;
   }
 
