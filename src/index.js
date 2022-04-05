@@ -75,7 +75,7 @@ Promise.all(promises)
     user.setUserInfo(userData._id, userData.name, userData.about, userData.avatar);
 
     // render cards
-    sectionWithCards.renderItems(cards);
+    sectionWithCards.renderItems(cards.reverse());
   })
   .catch((error) => {
     console.log(error)
@@ -200,7 +200,11 @@ const profilePopup = new PopupWithForm('#popup_edit-profile', (value) => {
     });
 });
 profilePopup.setEventListeners();
-editProfileBtn.addEventListener("click", () => profilePopup.openPopup());
+editProfileBtn.addEventListener("click", () => {
+  const userData = user.getUserInfo();
+  profilePopup.setInputValues(userData.name, userData.about);
+  profilePopup.openPopup();
+});
 
 //picture popup
 const picturePopup = new PopupWithImage('#popup_pic');
