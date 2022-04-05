@@ -3,6 +3,7 @@ export default class FormValidator {
     this._config = config;
     this._formElement = document.querySelector(formSelector);
     this._buttonElement = this._formElement.querySelector(this._config.buttonSelector);
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
   }
 
   _hideInputError(inputElement, errorElement) {
@@ -32,16 +33,16 @@ export default class FormValidator {
     }
   };
 
-  _toggleButtonState(inputList) {
-    if (this._hasInvalidInput(inputList)) {
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
       this._disableButton();
     } else {
       this._enableButton();
     }
   };
 
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => !inputElement.validity.valid);
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => !inputElement.validity.valid);
   }
 
   _disableButton() {
@@ -54,30 +55,26 @@ export default class FormValidator {
     this._buttonElement.disabled = false;
   };
 
-  _setEventListeners(formElement) {
-    const inputList = Array.from(
-      formElement.querySelectorAll(this._config.inputSelector)
-    );
-
-    inputList.forEach((inputElement) => {
+  _setEventListeners() {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         // validate input
         this._checkInputValidity(inputElement);
         // check button state
-        this._toggleButtonState(inputList);
+        this._toggleButtonState();
       });
     });
 
-    this._toggleButtonState(inputList);
+    this._toggleButtonState();
   };
 
   enableValidation() {
 
-      this._formElement.addEventListener("submit", (event) => {
-        event.preventDefault();
-        this._disableButton();
-      });
+    this._formElement.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this._disableButton();
+    });
 
-      this._setEventListeners(this._formElement);
+    this._setEventListeners(this._formElement);
   };
 }
