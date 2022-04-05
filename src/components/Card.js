@@ -29,11 +29,11 @@ export default class Card {
     this._handleLikeCard = handleLikeCard;
 
     this._likeBtnSelector = likeBtnSelector,
-    this._deleteBtnSelector = deleteBtnSelector,
-    this._cardImgSelector = cardImgSelector,
-    this._likeBtnActiveClass = likeBtnActiveClass,
-    this._newCardNameSelector = newCardNameSelector,
-    this._cardSelector = cardSelector
+      this._deleteBtnSelector = deleteBtnSelector,
+      this._cardImgSelector = cardImgSelector,
+      this._likeBtnActiveClass = likeBtnActiveClass,
+      this._newCardNameSelector = newCardNameSelector,
+      this._cardSelector = cardSelector
   }
 
   _getTemplate() {
@@ -53,8 +53,8 @@ export default class Card {
       this._handleLikeCard(this._id);
     });
 
-    this._img.addEventListener('click', (evt) => {
-      this._handleCardClick(evt);
+    this._img.addEventListener('click', () => {
+      this._handleCardClick();
     });
   }
 

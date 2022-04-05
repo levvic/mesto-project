@@ -116,8 +116,8 @@ const renderCard = function (cardData, userId, templateSelector) {
       likeNmbr: cardData.likes.length,
       likedByMe: cardData.likes.some(like => like._id === userId),
       createdByMe: cardData.owner._id === userId,
-      handleCardClick: (evt) => {
-        picturePopup.openPopup(evt)
+      handleCardClick: () => {
+        picturePopup.openPopup(cardData.name, cardData.link);
       },
       handleDeleteCard: (element, cardId) => {
         api.deleteCard(cardId)
