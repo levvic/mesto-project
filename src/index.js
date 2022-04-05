@@ -52,18 +52,17 @@ const user = new UserInfo({
   avatarSelector: profilePictureSelector
 });
 
-const sectionObj = new Section({
-  items: {},
-  renderer: (cardData, userData) => {
+const sectionWithCards = new Section({
+  renderer: (cardData) => {
 
     // get prepared card
-    const card = renderCard(cardData, userData._id, cardTemplate);
+    const card = renderCard(cardData, user.getUserInfo().id, cardTemplate);
 
     // get element of card
     const cardElement = card.createCardElement();
 
     // add element to DOM
-    sectionObj.addItem(cardElement);
+    sectionWithCards.addItem(cardElement);
   }
 }, cardsListSelector);
 
@@ -75,24 +74,8 @@ Promise.all(promises)
     // render profile info
     user.setUserInfo(userData._id, userData.name, userData.about, userData.avatar);
 
-    const sectionWithCards = new Section({
-      items: cards,
-      renderer: (cardData) => {
-
-        // get prepared card
-        const card = renderCard(cardData, userData._id, cardTemplate);
-
-        // get element of card
-        const cardElement = card.createCardElement();
-
-        // add element to DOM
-        sectionWithCards.addItem(cardElement);
-      }
-    }, cardsListSelector);
-
     // render cards
-    sectionWithCards.renderItems();
-
+    sectionWithCards.renderItems(cards);
   })
   .catch((error) => {
     console.log(error)
@@ -191,7 +174,7 @@ const popupAddCard = new PopupWithForm("#popup_add-card", (value) => {
       const cardElement = card.createCardElement();
 
       // add element to DOM
-      sectionObj.addItem(cardElement);
+      sectionWithCards.addItem(cardElement);
 
       popupAddCard.closePopup();
     })
