@@ -85,11 +85,11 @@ export default class Card {
     this._newCardElement = this._getTemplate();
     this._newCardElement.id = this._id;
     this._img = this._newCardElement.querySelector(this._cardImgSelector);
-    this.titleElement = this._newCardElement.querySelector(this._newCardNameSelector);
+    this._titleElement = this._newCardElement.querySelector(this._newCardNameSelector);
 
     this._img.src = this._link;
     this._img.alt = this._name;
-    this.titleElement.textContent = this._name;
+    this._titleElement.textContent = this._name;
 
     this._setEventListeners();
     this._hideDeleteBtn();
