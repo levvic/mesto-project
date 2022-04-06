@@ -4,7 +4,7 @@
 
 ### Инструкция по запуску
 
-* git clone <https://github.com/VictoriaPanchenko/mesto-project> (команда клонирующая проект с github)
+* git clone https://github.com/VictoriaPanchenko/mesto-project.git (команда клонирующая проект с github)
 * npm i (команда устанавливающая пакеты)
 * npm run build (команда для сборки проекта)
 * npm run dev (команда для запуска локального сервера)
