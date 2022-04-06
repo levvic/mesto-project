@@ -189,7 +189,7 @@ addCardBtn.addEventListener("click", () => popupAddCard.openPopup());
 //profile info popup
 const profilePopup = new PopupWithForm('#popup_edit-profile', (value) => {
   profileSubmitButton.textContent = "Сохранение...";
-  api.patchProfileInfo(value.name, value.description)
+  api.patchProfileInfo(value.name, value.about)
     .then((dataAboutUser) => {
       user.setUserInfo(dataAboutUser._id, dataAboutUser.name, dataAboutUser.about, dataAboutUser.avatar);
       profilePopup.closePopup();
@@ -201,8 +201,7 @@ const profilePopup = new PopupWithForm('#popup_edit-profile', (value) => {
 });
 profilePopup.setEventListeners();
 editProfileBtn.addEventListener("click", () => {
-  const userData = user.getUserInfo();
-  profilePopup.setInputValues(userData.name, userData.about);
+  profilePopup.setInputValues(user.getUserInfo());
   profilePopup.openPopup();
 });
 
