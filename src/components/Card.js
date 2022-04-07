@@ -5,10 +5,11 @@ export default class Card {
       link,
       likeNmbr,
       likedByMe,
-      createdByMe,
       handleCardClick,
       handleDeleteCard,
-      handleLikeCard
+      handleLikeCard,
+      ownerId,
+      userId
     }, templateSelector,
     likeBtnSelector,
     deleteBtnSelector,
@@ -21,7 +22,8 @@ export default class Card {
     this._link = link;
     this._likeNmbr = likeNmbr;
     this._likedByMe = likedByMe;
-    this._createdByMe = createdByMe;
+    this._ownerId = ownerId;
+    this._userId = userId;
 
     this._cardTemplateElement = document.querySelector(templateSelector);
     this._handleCardClick = handleCardClick;
@@ -46,7 +48,7 @@ export default class Card {
     this._likeBtn = this._newCardElement.querySelector(this._likeBtnSelector);
 
     this._deleteBtn.addEventListener('click', () => {
-      this._handleDeleteCard(this._newCardElement, this._id)
+      this._handleDeleteCard(this._id)
     });
 
     this._likeBtn.addEventListener('click', () => {
@@ -60,7 +62,7 @@ export default class Card {
 
   _hideDeleteBtn() {
     // user can delete only his own cards
-    if (!this._createdByMe) {
+    if (this._ownerId !== this._userId) {
       this._deleteBtn.style.display = "none";
     }
   }

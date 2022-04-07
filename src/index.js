@@ -91,11 +91,10 @@ const renderCard = function (cardData, userId, templateSelector) {
       link: cardData.link,
       likeNmbr: cardData.likes.length,
       likedByMe: cardData.likes.some(like => like._id === userId),
-      createdByMe: cardData.owner._id === userId,
       handleCardClick: () => {
         picturePopup.openPopup(cardData.name, cardData.link);
       },
-      handleDeleteCard: (element, cardId) => {
+      handleDeleteCard: (cardId) => {
         api.deleteCard(cardId)
           .then((res) => {
             if (res) {
@@ -107,7 +106,6 @@ const renderCard = function (cardData, userId, templateSelector) {
           })
       },
       handleLikeCard: (cardId) => {
-
         if (card.isCardLikedByMe()) {
           api.deleteLike(cardId)
             .then((data) => {
@@ -127,8 +125,9 @@ const renderCard = function (cardData, userId, templateSelector) {
               console.log(err);
             });
         }
-
-      }
+      },
+      ownerId: cardData.owner._id,
+      userId: userId
     },
     templateSelector,
     likeBtnSelector,
