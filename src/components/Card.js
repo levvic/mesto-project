@@ -81,6 +81,10 @@ export default class Card {
     return this._likedByMe;
   }
 
+  deleteCardElement() {
+    this._newCardElement.remove();
+  }
+
   createCardElement() {
     this._newCardElement = this._getTemplate();
     this._newCardElement.id = this._id;

@@ -99,7 +99,7 @@ const renderCard = function (cardData, userId, templateSelector) {
         api.deleteCard(cardId)
           .then((res) => {
             if (res) {
-              element.remove();
+              card.deleteCardElement();
             }
           })
           .catch((error) => {
