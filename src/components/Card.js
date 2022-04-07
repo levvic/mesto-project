@@ -3,8 +3,7 @@ export default class Card {
       id,
       name,
       link,
-      likeNmbr,
-      likedByMe,
+      likes,
       handleCardClick,
       handleDeleteCard,
       handleLikeCard,
@@ -20,8 +19,9 @@ export default class Card {
     this._id = id;
     this._name = name;
     this._link = link;
-    this._likeNmbr = likeNmbr;
-    this._likedByMe = likedByMe;
+    this._likes = likes;
+    this._likeNmbr = likes.length;
+    this._likedByMe = likes.some(like => like._id === userId);
     this._ownerId = ownerId;
     this._userId = userId;
 

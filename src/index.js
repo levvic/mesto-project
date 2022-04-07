@@ -81,16 +81,13 @@ Promise.all(promises)
     console.log(error)
   });
 
-
-
 const renderCard = function (cardData, userId, templateSelector) {
 
   const card = new Card({
       id: cardData._id,
       name: cardData.name,
       link: cardData.link,
-      likeNmbr: cardData.likes.length,
-      likedByMe: cardData.likes.some(like => like._id === userId),
+      likes: cardData.likes,
       handleCardClick: () => {
         picturePopup.openPopup(cardData.name, cardData.link);
       },
@@ -139,7 +136,6 @@ const renderCard = function (cardData, userId, templateSelector) {
   );
 
   return card;
-
 }
 
 //avatar popup
