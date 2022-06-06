@@ -1,14 +1,6 @@
 # Проект: Место
 
-* [Ссылка](https://victoriapanchenko.github.io/mesto-project/), по которой доступен проект.
-
-### Инструкция по запуску
-
-* git clone https://github.com/VictoriaPanchenko/mesto-project.git (команда клонирующая проект с github)
-* npm i (команда устанавливающая пакеты)
-* npm run build (команда для сборки проекта)
-* npm run dev (команда для запуска локального сервера)
-* <http://localhost:8020/> (адрес локального сервера)
+* [Ссылка](https://levvic.github.io/mesto-project/), по которой доступен проект.
 
 ### Обзор
 
