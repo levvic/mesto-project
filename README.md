@@ -22,5 +22,6 @@
 * Mинификация css
 
 Авторы:
-https://github.com/levvic
-https://github.com/AntonAduisky
+
+* https://github.com/levvic
+* https://github.com/AntonAduisky
