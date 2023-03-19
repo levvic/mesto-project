@@ -20,3 +20,7 @@
 * Webpack
 * Mодули JS
 * Mинификация css
+
+Авторы:
+https://github.com/levvic
+https://github.com/AntonAduisky
